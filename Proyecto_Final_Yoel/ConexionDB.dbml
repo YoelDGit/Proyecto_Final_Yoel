@@ -1,41 +1,62 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="PROYECTO" Class="ConexionDBDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=WINDOWS1064\SQLEXPRESS;Initial Catalog=PROYECTO;Integrated Security=True" SettingsObjectName="Proyecto_Final_Yoel.Properties.Settings" SettingsPropertyName="PROYECTOConnectionString" Provider="System.Data.SqlClient" />
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Proyecto_Final_Yoel" Class="ConexionDBDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=PTL-243\SQLEXPRESS2022;Initial Catalog=Proyecto_Final_Yoel;Integrated Security=True;Encrypt=True;Trust Server Certificate=True" SettingsObjectName="Proyecto_Final_Yoel.Properties.Settings" SettingsPropertyName="Proyecto_Final_YoelConnectionString1" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Categorias" Member="Categorias">
+    <Type Name="Categorias">
+      <Column Name="IdCategoria" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Nombre" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Association Name="Categorias_Stock" Member="Stock" ThisKey="IdCategoria" OtherKey="IdCategoria" Type="Stock" />
+    </Type>
+  </Table>
   <Table Name="dbo.Clientes" Member="Clientes">
     <Type Name="Clientes">
-      <Column Name="ID_Clientes" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="Nombre" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
-      <Column Name="Apellidos" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="IdCliente" Type="System.String" DbType="Char(7) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Nombre" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Apellidos" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
       <Column Name="Direccion" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="Telefono" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
-      <Association Name="Clientes_Transacciones" Member="Transacciones" ThisKey="ID_Clientes" OtherKey="ID_Clientes" Type="Transacciones" />
+      <Column Name="Telefono" Type="System.String" DbType="VarChar(9)" CanBeNull="true" />
+      <Association Name="Clientes_Transacciones" Member="Transacciones" ThisKey="IdCliente" OtherKey="IdCliente" Type="Transacciones" />
     </Type>
   </Table>
   <Table Name="dbo.Transacciones" Member="Transacciones">
     <Type Name="Transacciones">
-      <Column Name="ID_Transaccion" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="ID_Clientes" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="ID_Stock" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
-      <Association Name="Clientes_Transacciones" Member="Clientes" ThisKey="ID_Clientes" OtherKey="ID_Clientes" Type="Clientes" IsForeignKey="true" DeleteRule="CASCADE" />
-      <Association Name="Stock_Transacciones" Member="Stock" ThisKey="ID_Stock" OtherKey="ID_Stock" Type="Stock" IsForeignKey="true" DeleteRule="CASCADE" />
+      <Column Name="IdTransaccion" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdCliente" Type="System.String" DbType="Char(7)" CanBeNull="true" />
+      <Column Name="Fecha" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Tipo" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Association Name="Transacciones_DetalleTransaccion" Member="DetalleTransaccion" ThisKey="IdTransaccion" OtherKey="IdTransaccion" Type="DetalleTransaccion" />
+      <Association Name="Clientes_Transacciones" Member="Clientes" ThisKey="IdCliente" OtherKey="IdCliente" Type="Clientes" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DetalleTransaccion" Member="DetalleTransaccion">
+    <Type Name="DetalleTransaccion">
+      <Column Name="IdDetalle" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdTransaccion" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IdItem" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="Cantidad" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PrecioUnitario" Type="System.Decimal" DbType="Decimal(10,2) NOT NULL" CanBeNull="false" />
+      <Association Name="Transacciones_DetalleTransaccion" Member="Transacciones" ThisKey="IdTransaccion" OtherKey="IdTransaccion" Type="Transacciones" IsForeignKey="true" />
+      <Association Name="Stock_DetalleTransaccion" Member="Stock" ThisKey="IdItem" OtherKey="IdStock" Type="Stock" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Inicio_Sesion" Member="Inicio_Sesion">
     <Type Name="Inicio_Sesion">
-      <Column Name="ID_Usuario" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Usuario" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
-      <Column Name="Contrasenia" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
-      <Column Name="Fecha" Type="System.DateTime" DbType="Date" CanBeNull="true" />
-      <Column Name="Hora" Type="System.TimeSpan" DbType="Time" CanBeNull="true" />
+      <Column Name="IdUsuario" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Usuario" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="Contrasena" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="Fecha" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="Hora" Type="System.TimeSpan" DbType="Time NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
   <Table Name="dbo.Stock" Member="Stock">
     <Type Name="Stock">
-      <Column Name="ID_Stock" Type="System.String" DbType="VarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="Nombre" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
-      <Column Name="Descripcion" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
-      <Column Name="Cantidad" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Precio" Type="System.Decimal" DbType="Money" CanBeNull="true" />
-      <Association Name="Stock_Transacciones" Member="Transacciones" ThisKey="ID_Stock" OtherKey="ID_Stock" Type="Transacciones" />
+      <Column Name="IdStock" Type="System.String" DbType="VarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Nombre" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Descripcion" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="IdCategoria" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Precio" Type="System.Decimal" DbType="Decimal(10,2) NOT NULL" CanBeNull="false" />
+      <Column Name="Cantidad" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Stock_DetalleTransaccion" Member="DetalleTransaccion" ThisKey="IdStock" OtherKey="IdItem" Type="DetalleTransaccion" />
+      <Association Name="Categorias_Stock" Member="Categorias" ThisKey="IdCategoria" OtherKey="IdCategoria" Type="Categorias" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

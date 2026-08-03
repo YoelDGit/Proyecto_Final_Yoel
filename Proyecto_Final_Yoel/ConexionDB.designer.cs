@@ -22,7 +22,7 @@ namespace Proyecto_Final_Yoel
 	using System;
 	
 	
-	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="PROYECTO")]
+	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="Proyecto_Final_Yoel")]
 	public partial class ConexionDBDataContext : System.Data.Linq.DataContext
 	{
 		
@@ -30,22 +30,28 @@ namespace Proyecto_Final_Yoel
 		
     #region Definiciones de métodos de extensibilidad
     partial void OnCreated();
+    partial void InsertCategorias(Categorias instance);
+    partial void UpdateCategorias(Categorias instance);
+    partial void DeleteCategorias(Categorias instance);
     partial void InsertClientes(Clientes instance);
     partial void UpdateClientes(Clientes instance);
     partial void DeleteClientes(Clientes instance);
     partial void InsertTransacciones(Transacciones instance);
     partial void UpdateTransacciones(Transacciones instance);
     partial void DeleteTransacciones(Transacciones instance);
+    partial void InsertDetalleTransaccion(DetalleTransaccion instance);
+    partial void UpdateDetalleTransaccion(DetalleTransaccion instance);
+    partial void DeleteDetalleTransaccion(DetalleTransaccion instance);
     partial void InsertInicio_Sesion(Inicio_Sesion instance);
     partial void UpdateInicio_Sesion(Inicio_Sesion instance);
     partial void DeleteInicio_Sesion(Inicio_Sesion instance);
-    partial void InsertStock(FormStock instance);
-    partial void UpdateStock(FormStock instance);
-    partial void DeleteStock(FormStock instance);
+    partial void InsertStock(Stock instance);
+    partial void UpdateStock(Stock instance);
+    partial void DeleteStock(Stock instance);
     #endregion
 		
 		public ConexionDBDataContext() : 
-				base(global::Proyecto_Final_Yoel.Properties.Settings.Default.PROYECTOConnectionString, mappingSource)
+				base(global::Proyecto_Final_Yoel.Properties.Settings.Default.Proyecto_Final_YoelConnectionString1, mappingSource)
 		{
 			OnCreated();
 		}
@@ -74,6 +80,14 @@ namespace Proyecto_Final_Yoel
 			OnCreated();
 		}
 		
+		public System.Data.Linq.Table<Categorias> Categorias
+		{
+			get
+			{
+				return this.GetTable<Categorias>();
+			}
+		}
+		
 		public System.Data.Linq.Table<Clientes> Clientes
 		{
 			get
@@ -90,6 +104,14 @@ namespace Proyecto_Final_Yoel
 			}
 		}
 		
+		public System.Data.Linq.Table<DetalleTransaccion> DetalleTransaccion
+		{
+			get
+			{
+				return this.GetTable<DetalleTransaccion>();
+			}
+		}
+		
 		public System.Data.Linq.Table<Inicio_Sesion> Inicio_Sesion
 		{
 			get
@@ -98,76 +120,64 @@ namespace Proyecto_Final_Yoel
 			}
 		}
 		
-		public System.Data.Linq.Table<FormStock> Stock
+		public System.Data.Linq.Table<Stock> Stock
 		{
 			get
 			{
-				return this.GetTable<FormStock>();
+				return this.GetTable<Stock>();
 			}
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Clientes")]
-	public partial class Clientes : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Categorias")]
+	public partial class Categorias : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private int _ID_Clientes;
+		private int _IdCategoria;
 		
 		private string _Nombre;
 		
-		private string _Apellidos;
-		
-		private string _Direccion;
-		
-		private string _Telefono;
-		
-		private EntitySet<Transacciones> _Transacciones;
+		private EntitySet<Stock> _Stock;
 		
     #region Definiciones de métodos de extensibilidad
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnID_ClientesChanging(int value);
-    partial void OnID_ClientesChanged();
+    partial void OnIdCategoriaChanging(int value);
+    partial void OnIdCategoriaChanged();
     partial void OnNombreChanging(string value);
     partial void OnNombreChanged();
-    partial void OnApellidosChanging(string value);
-    partial void OnApellidosChanged();
-    partial void OnDireccionChanging(string value);
-    partial void OnDireccionChanged();
-    partial void OnTelefonoChanging(string value);
-    partial void OnTelefonoChanged();
     #endregion
 		
-		public Clientes()
+		public Categorias()
 		{
-			this._Transacciones = new EntitySet<Transacciones>(new Action<Transacciones>(this.attach_Transacciones), new Action<Transacciones>(this.detach_Transacciones));
+			this._Stock = new EntitySet<Stock>(new Action<Stock>(this.attach_Stock), new Action<Stock>(this.detach_Stock));
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID_Clientes", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int ID_Clientes
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdCategoria", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int IdCategoria
 		{
 			get
 			{
-				return this._ID_Clientes;
+				return this._IdCategoria;
 			}
 			set
 			{
-				if ((this._ID_Clientes != value))
+				if ((this._IdCategoria != value))
 				{
-					this.OnID_ClientesChanging(value);
+					this.OnIdCategoriaChanging(value);
 					this.SendPropertyChanging();
-					this._ID_Clientes = value;
-					this.SendPropertyChanged("ID_Clientes");
-					this.OnID_ClientesChanged();
+					this._IdCategoria = value;
+					this.SendPropertyChanged("IdCategoria");
+					this.OnIdCategoriaChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nombre", DbType="VarChar(20)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nombre", DbType="VarChar(30) NOT NULL", CanBeNull=false)]
 		public string Nombre
 		{
 			get
@@ -187,7 +197,133 @@ namespace Proyecto_Final_Yoel
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Apellidos", DbType="VarChar(20)")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Categorias_Stock", Storage="_Stock", ThisKey="IdCategoria", OtherKey="IdCategoria")]
+		public EntitySet<Stock> Stock
+		{
+			get
+			{
+				return this._Stock;
+			}
+			set
+			{
+				this._Stock.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Stock(Stock entity)
+		{
+			this.SendPropertyChanging();
+			entity.Categorias = this;
+		}
+		
+		private void detach_Stock(Stock entity)
+		{
+			this.SendPropertyChanging();
+			entity.Categorias = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Clientes")]
+	public partial class Clientes : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _IdCliente;
+		
+		private string _Nombre;
+		
+		private string _Apellidos;
+		
+		private string _Direccion;
+		
+		private string _Telefono;
+		
+		private EntitySet<Transacciones> _Transacciones;
+		
+    #region Definiciones de métodos de extensibilidad
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdClienteChanging(string value);
+    partial void OnIdClienteChanged();
+    partial void OnNombreChanging(string value);
+    partial void OnNombreChanged();
+    partial void OnApellidosChanging(string value);
+    partial void OnApellidosChanged();
+    partial void OnDireccionChanging(string value);
+    partial void OnDireccionChanged();
+    partial void OnTelefonoChanging(string value);
+    partial void OnTelefonoChanged();
+    #endregion
+		
+		public Clientes()
+		{
+			this._Transacciones = new EntitySet<Transacciones>(new Action<Transacciones>(this.attach_Transacciones), new Action<Transacciones>(this.detach_Transacciones));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdCliente", DbType="Char(7) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string IdCliente
+		{
+			get
+			{
+				return this._IdCliente;
+			}
+			set
+			{
+				if ((this._IdCliente != value))
+				{
+					this.OnIdClienteChanging(value);
+					this.SendPropertyChanging();
+					this._IdCliente = value;
+					this.SendPropertyChanged("IdCliente");
+					this.OnIdClienteChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nombre", DbType="VarChar(20) NOT NULL", CanBeNull=false)]
+		public string Nombre
+		{
+			get
+			{
+				return this._Nombre;
+			}
+			set
+			{
+				if ((this._Nombre != value))
+				{
+					this.OnNombreChanging(value);
+					this.SendPropertyChanging();
+					this._Nombre = value;
+					this.SendPropertyChanged("Nombre");
+					this.OnNombreChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Apellidos", DbType="VarChar(20) NOT NULL", CanBeNull=false)]
 		public string Apellidos
 		{
 			get
@@ -227,7 +363,7 @@ namespace Proyecto_Final_Yoel
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Telefono", DbType="VarChar(20)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Telefono", DbType="VarChar(9)")]
 		public string Telefono
 		{
 			get
@@ -247,7 +383,7 @@ namespace Proyecto_Final_Yoel
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Clientes_Transacciones", Storage="_Transacciones", ThisKey="ID_Clientes", OtherKey="ID_Clientes")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Clientes_Transacciones", Storage="_Transacciones", ThisKey="IdCliente", OtherKey="IdCliente")]
 		public EntitySet<Transacciones> Transacciones
 		{
 			get
@@ -299,104 +435,137 @@ namespace Proyecto_Final_Yoel
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private int _ID_Transaccion;
+		private int _IdTransaccion;
 		
-		private System.Nullable<int> _ID_Clientes;
+		private string _IdCliente;
 		
-		private string _ID_Stock;
+		private System.DateTime _Fecha;
+		
+		private string _Tipo;
+		
+		private EntitySet<DetalleTransaccion> _DetalleTransaccion;
 		
 		private EntityRef<Clientes> _Clientes;
-		
-		private EntityRef<FormStock> _Stock;
 		
     #region Definiciones de métodos de extensibilidad
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnID_TransaccionChanging(int value);
-    partial void OnID_TransaccionChanged();
-    partial void OnID_ClientesChanging(System.Nullable<int> value);
-    partial void OnID_ClientesChanged();
-    partial void OnID_StockChanging(string value);
-    partial void OnID_StockChanged();
+    partial void OnIdTransaccionChanging(int value);
+    partial void OnIdTransaccionChanged();
+    partial void OnIdClienteChanging(string value);
+    partial void OnIdClienteChanged();
+    partial void OnFechaChanging(System.DateTime value);
+    partial void OnFechaChanged();
+    partial void OnTipoChanging(string value);
+    partial void OnTipoChanged();
     #endregion
 		
 		public Transacciones()
 		{
+			this._DetalleTransaccion = new EntitySet<DetalleTransaccion>(new Action<DetalleTransaccion>(this.attach_DetalleTransaccion), new Action<DetalleTransaccion>(this.detach_DetalleTransaccion));
 			this._Clientes = default(EntityRef<Clientes>);
-			this._Stock = default(EntityRef<FormStock>);
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID_Transaccion", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int ID_Transaccion
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdTransaccion", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int IdTransaccion
 		{
 			get
 			{
-				return this._ID_Transaccion;
+				return this._IdTransaccion;
 			}
 			set
 			{
-				if ((this._ID_Transaccion != value))
+				if ((this._IdTransaccion != value))
 				{
-					this.OnID_TransaccionChanging(value);
+					this.OnIdTransaccionChanging(value);
 					this.SendPropertyChanging();
-					this._ID_Transaccion = value;
-					this.SendPropertyChanged("ID_Transaccion");
-					this.OnID_TransaccionChanged();
+					this._IdTransaccion = value;
+					this.SendPropertyChanged("IdTransaccion");
+					this.OnIdTransaccionChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID_Clientes", DbType="Int")]
-		public System.Nullable<int> ID_Clientes
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdCliente", DbType="Char(7)")]
+		public string IdCliente
 		{
 			get
 			{
-				return this._ID_Clientes;
+				return this._IdCliente;
 			}
 			set
 			{
-				if ((this._ID_Clientes != value))
+				if ((this._IdCliente != value))
 				{
 					if (this._Clientes.HasLoadedOrAssignedValue)
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
-					this.OnID_ClientesChanging(value);
+					this.OnIdClienteChanging(value);
 					this.SendPropertyChanging();
-					this._ID_Clientes = value;
-					this.SendPropertyChanged("ID_Clientes");
-					this.OnID_ClientesChanged();
+					this._IdCliente = value;
+					this.SendPropertyChanged("IdCliente");
+					this.OnIdClienteChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID_Stock", DbType="VarChar(20)")]
-		public string ID_Stock
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Fecha", DbType="DateTime NOT NULL")]
+		public System.DateTime Fecha
 		{
 			get
 			{
-				return this._ID_Stock;
+				return this._Fecha;
 			}
 			set
 			{
-				if ((this._ID_Stock != value))
+				if ((this._Fecha != value))
 				{
-					if (this._Stock.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnID_StockChanging(value);
+					this.OnFechaChanging(value);
 					this.SendPropertyChanging();
-					this._ID_Stock = value;
-					this.SendPropertyChanged("ID_Stock");
-					this.OnID_StockChanged();
+					this._Fecha = value;
+					this.SendPropertyChanged("Fecha");
+					this.OnFechaChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Clientes_Transacciones", Storage="_Clientes", ThisKey="ID_Clientes", OtherKey="ID_Clientes", IsForeignKey=true, DeleteRule="CASCADE")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Tipo", DbType="VarChar(10) NOT NULL", CanBeNull=false)]
+		public string Tipo
+		{
+			get
+			{
+				return this._Tipo;
+			}
+			set
+			{
+				if ((this._Tipo != value))
+				{
+					this.OnTipoChanging(value);
+					this.SendPropertyChanging();
+					this._Tipo = value;
+					this.SendPropertyChanged("Tipo");
+					this.OnTipoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Transacciones_DetalleTransaccion", Storage="_DetalleTransaccion", ThisKey="IdTransaccion", OtherKey="IdTransaccion")]
+		public EntitySet<DetalleTransaccion> DetalleTransaccion
+		{
+			get
+			{
+				return this._DetalleTransaccion;
+			}
+			set
+			{
+				this._DetalleTransaccion.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Clientes_Transacciones", Storage="_Clientes", ThisKey="IdCliente", OtherKey="IdCliente", IsForeignKey=true)]
 		public Clientes Clientes
 		{
 			get
@@ -419,19 +588,237 @@ namespace Proyecto_Final_Yoel
 					if ((value != null))
 					{
 						value.Transacciones.Add(this);
-						this._ID_Clientes = value.ID_Clientes;
+						this._IdCliente = value.IdCliente;
 					}
 					else
 					{
-						this._ID_Clientes = default(Nullable<int>);
+						this._IdCliente = default(string);
 					}
 					this.SendPropertyChanged("Clientes");
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Stock_Transacciones", Storage="_Stock", ThisKey="ID_Stock", OtherKey="ID_Stock", IsForeignKey=true, DeleteRule="CASCADE")]
-		public FormStock Stock
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_DetalleTransaccion(DetalleTransaccion entity)
+		{
+			this.SendPropertyChanging();
+			entity.Transacciones = this;
+		}
+		
+		private void detach_DetalleTransaccion(DetalleTransaccion entity)
+		{
+			this.SendPropertyChanging();
+			entity.Transacciones = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DetalleTransaccion")]
+	public partial class DetalleTransaccion : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _IdDetalle;
+		
+		private System.Nullable<int> _IdTransaccion;
+		
+		private string _IdItem;
+		
+		private int _Cantidad;
+		
+		private decimal _PrecioUnitario;
+		
+		private EntityRef<Transacciones> _Transacciones;
+		
+		private EntityRef<Stock> _Stock;
+		
+    #region Definiciones de métodos de extensibilidad
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdDetalleChanging(int value);
+    partial void OnIdDetalleChanged();
+    partial void OnIdTransaccionChanging(System.Nullable<int> value);
+    partial void OnIdTransaccionChanged();
+    partial void OnIdItemChanging(string value);
+    partial void OnIdItemChanged();
+    partial void OnCantidadChanging(int value);
+    partial void OnCantidadChanged();
+    partial void OnPrecioUnitarioChanging(decimal value);
+    partial void OnPrecioUnitarioChanged();
+    #endregion
+		
+		public DetalleTransaccion()
+		{
+			this._Transacciones = default(EntityRef<Transacciones>);
+			this._Stock = default(EntityRef<Stock>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdDetalle", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int IdDetalle
+		{
+			get
+			{
+				return this._IdDetalle;
+			}
+			set
+			{
+				if ((this._IdDetalle != value))
+				{
+					this.OnIdDetalleChanging(value);
+					this.SendPropertyChanging();
+					this._IdDetalle = value;
+					this.SendPropertyChanged("IdDetalle");
+					this.OnIdDetalleChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdTransaccion", DbType="Int")]
+		public System.Nullable<int> IdTransaccion
+		{
+			get
+			{
+				return this._IdTransaccion;
+			}
+			set
+			{
+				if ((this._IdTransaccion != value))
+				{
+					if (this._Transacciones.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnIdTransaccionChanging(value);
+					this.SendPropertyChanging();
+					this._IdTransaccion = value;
+					this.SendPropertyChanged("IdTransaccion");
+					this.OnIdTransaccionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdItem", DbType="VarChar(10)")]
+		public string IdItem
+		{
+			get
+			{
+				return this._IdItem;
+			}
+			set
+			{
+				if ((this._IdItem != value))
+				{
+					if (this._Stock.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnIdItemChanging(value);
+					this.SendPropertyChanging();
+					this._IdItem = value;
+					this.SendPropertyChanged("IdItem");
+					this.OnIdItemChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Cantidad", DbType="Int NOT NULL")]
+		public int Cantidad
+		{
+			get
+			{
+				return this._Cantidad;
+			}
+			set
+			{
+				if ((this._Cantidad != value))
+				{
+					this.OnCantidadChanging(value);
+					this.SendPropertyChanging();
+					this._Cantidad = value;
+					this.SendPropertyChanged("Cantidad");
+					this.OnCantidadChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PrecioUnitario", DbType="Decimal(10,2) NOT NULL")]
+		public decimal PrecioUnitario
+		{
+			get
+			{
+				return this._PrecioUnitario;
+			}
+			set
+			{
+				if ((this._PrecioUnitario != value))
+				{
+					this.OnPrecioUnitarioChanging(value);
+					this.SendPropertyChanging();
+					this._PrecioUnitario = value;
+					this.SendPropertyChanged("PrecioUnitario");
+					this.OnPrecioUnitarioChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Transacciones_DetalleTransaccion", Storage="_Transacciones", ThisKey="IdTransaccion", OtherKey="IdTransaccion", IsForeignKey=true)]
+		public Transacciones Transacciones
+		{
+			get
+			{
+				return this._Transacciones.Entity;
+			}
+			set
+			{
+				Transacciones previousValue = this._Transacciones.Entity;
+				if (((previousValue != value) 
+							|| (this._Transacciones.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Transacciones.Entity = null;
+						previousValue.DetalleTransaccion.Remove(this);
+					}
+					this._Transacciones.Entity = value;
+					if ((value != null))
+					{
+						value.DetalleTransaccion.Add(this);
+						this._IdTransaccion = value.IdTransaccion;
+					}
+					else
+					{
+						this._IdTransaccion = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Transacciones");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Stock_DetalleTransaccion", Storage="_Stock", ThisKey="IdItem", OtherKey="IdStock", IsForeignKey=true)]
+		public Stock Stock
 		{
 			get
 			{
@@ -439,7 +826,7 @@ namespace Proyecto_Final_Yoel
 			}
 			set
 			{
-				FormStock previousValue = this._Stock.Entity;
+				Stock previousValue = this._Stock.Entity;
 				if (((previousValue != value) 
 							|| (this._Stock.HasLoadedOrAssignedValue == false)))
 				{
@@ -447,17 +834,17 @@ namespace Proyecto_Final_Yoel
 					if ((previousValue != null))
 					{
 						this._Stock.Entity = null;
-						previousValue.Transacciones.Remove(this);
+						previousValue.DetalleTransaccion.Remove(this);
 					}
 					this._Stock.Entity = value;
 					if ((value != null))
 					{
-						value.Transacciones.Add(this);
-						this._ID_Stock = value.ID_Stock;
+						value.DetalleTransaccion.Add(this);
+						this._IdItem = value.IdStock;
 					}
 					else
 					{
-						this._ID_Stock = default(string);
+						this._IdItem = default(string);
 					}
 					this.SendPropertyChanged("Stock");
 				}
@@ -491,29 +878,29 @@ namespace Proyecto_Final_Yoel
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private int _ID_Usuario;
+		private int _IdUsuario;
 		
 		private string _Usuario;
 		
-		private string _Contrasenia;
+		private string _Contrasena;
 		
-		private System.Nullable<System.DateTime> _Fecha;
+		private System.DateTime _Fecha;
 		
-		private System.Nullable<System.TimeSpan> _Hora;
+		private System.TimeSpan _Hora;
 		
     #region Definiciones de métodos de extensibilidad
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnID_UsuarioChanging(int value);
-    partial void OnID_UsuarioChanged();
+    partial void OnIdUsuarioChanging(int value);
+    partial void OnIdUsuarioChanged();
     partial void OnUsuarioChanging(string value);
     partial void OnUsuarioChanged();
-    partial void OnContraseniaChanging(string value);
-    partial void OnContraseniaChanged();
-    partial void OnFechaChanging(System.Nullable<System.DateTime> value);
+    partial void OnContrasenaChanging(string value);
+    partial void OnContrasenaChanged();
+    partial void OnFechaChanging(System.DateTime value);
     partial void OnFechaChanged();
-    partial void OnHoraChanging(System.Nullable<System.TimeSpan> value);
+    partial void OnHoraChanging(System.TimeSpan value);
     partial void OnHoraChanged();
     #endregion
 		
@@ -522,27 +909,27 @@ namespace Proyecto_Final_Yoel
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID_Usuario", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int ID_Usuario
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdUsuario", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int IdUsuario
 		{
 			get
 			{
-				return this._ID_Usuario;
+				return this._IdUsuario;
 			}
 			set
 			{
-				if ((this._ID_Usuario != value))
+				if ((this._IdUsuario != value))
 				{
-					this.OnID_UsuarioChanging(value);
+					this.OnIdUsuarioChanging(value);
 					this.SendPropertyChanging();
-					this._ID_Usuario = value;
-					this.SendPropertyChanged("ID_Usuario");
-					this.OnID_UsuarioChanged();
+					this._IdUsuario = value;
+					this.SendPropertyChanged("IdUsuario");
+					this.OnIdUsuarioChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Usuario", DbType="VarChar(10)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Usuario", DbType="VarChar(10) NOT NULL", CanBeNull=false)]
 		public string Usuario
 		{
 			get
@@ -562,28 +949,28 @@ namespace Proyecto_Final_Yoel
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Contrasenia", DbType="VarChar(10)")]
-		public string Contrasenia
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Contrasena", DbType="VarChar(10) NOT NULL", CanBeNull=false)]
+		public string Contrasena
 		{
 			get
 			{
-				return this._Contrasenia;
+				return this._Contrasena;
 			}
 			set
 			{
-				if ((this._Contrasenia != value))
+				if ((this._Contrasena != value))
 				{
-					this.OnContraseniaChanging(value);
+					this.OnContrasenaChanging(value);
 					this.SendPropertyChanging();
-					this._Contrasenia = value;
-					this.SendPropertyChanged("Contrasenia");
-					this.OnContraseniaChanged();
+					this._Contrasena = value;
+					this.SendPropertyChanged("Contrasena");
+					this.OnContrasenaChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Fecha", DbType="Date")]
-		public System.Nullable<System.DateTime> Fecha
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Fecha", DbType="Date NOT NULL")]
+		public System.DateTime Fecha
 		{
 			get
 			{
@@ -602,8 +989,8 @@ namespace Proyecto_Final_Yoel
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Hora", DbType="Time")]
-		public System.Nullable<System.TimeSpan> Hora
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Hora", DbType="Time NOT NULL")]
+		public System.TimeSpan Hora
 		{
 			get
 			{
@@ -644,66 +1031,73 @@ namespace Proyecto_Final_Yoel
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Stock")]
-	public partial class FormStock : INotifyPropertyChanging, INotifyPropertyChanged
+	public partial class Stock : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private string _ID_Stock;
+		private string _IdStock;
 		
 		private string _Nombre;
 		
 		private string _Descripcion;
 		
-		private System.Nullable<int> _Cantidad;
+		private System.Nullable<int> _IdCategoria;
 		
-		private System.Nullable<decimal> _Precio;
+		private decimal _Precio;
 		
-		private EntitySet<Transacciones> _Transacciones;
+		private int _Cantidad;
+		
+		private EntitySet<DetalleTransaccion> _DetalleTransaccion;
+		
+		private EntityRef<Categorias> _Categorias;
 		
     #region Definiciones de métodos de extensibilidad
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnID_StockChanging(string value);
-    partial void OnID_StockChanged();
+    partial void OnIdStockChanging(string value);
+    partial void OnIdStockChanged();
     partial void OnNombreChanging(string value);
     partial void OnNombreChanged();
     partial void OnDescripcionChanging(string value);
     partial void OnDescripcionChanged();
-    partial void OnCantidadChanging(System.Nullable<int> value);
-    partial void OnCantidadChanged();
-    partial void OnPrecioChanging(System.Nullable<decimal> value);
+    partial void OnIdCategoriaChanging(System.Nullable<int> value);
+    partial void OnIdCategoriaChanged();
+    partial void OnPrecioChanging(decimal value);
     partial void OnPrecioChanged();
+    partial void OnCantidadChanging(int value);
+    partial void OnCantidadChanged();
     #endregion
 		
-		public FormStock()
+		public Stock()
 		{
-			this._Transacciones = new EntitySet<Transacciones>(new Action<Transacciones>(this.attach_Transacciones), new Action<Transacciones>(this.detach_Transacciones));
+			this._DetalleTransaccion = new EntitySet<DetalleTransaccion>(new Action<DetalleTransaccion>(this.attach_DetalleTransaccion), new Action<DetalleTransaccion>(this.detach_DetalleTransaccion));
+			this._Categorias = default(EntityRef<Categorias>);
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID_Stock", DbType="VarChar(20) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
-		public string ID_Stock
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdStock", DbType="VarChar(10) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string IdStock
 		{
 			get
 			{
-				return this._ID_Stock;
+				return this._IdStock;
 			}
 			set
 			{
-				if ((this._ID_Stock != value))
+				if ((this._IdStock != value))
 				{
-					this.OnID_StockChanging(value);
+					this.OnIdStockChanging(value);
 					this.SendPropertyChanging();
-					this._ID_Stock = value;
-					this.SendPropertyChanged("ID_Stock");
-					this.OnID_StockChanged();
+					this._IdStock = value;
+					this.SendPropertyChanged("IdStock");
+					this.OnIdStockChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nombre", DbType="VarChar(20)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nombre", DbType="VarChar(20) NOT NULL", CanBeNull=false)]
 		public string Nombre
 		{
 			get
@@ -723,7 +1117,7 @@ namespace Proyecto_Final_Yoel
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Descripcion", DbType="VarChar(250)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Descripcion", DbType="VarChar(200)")]
 		public string Descripcion
 		{
 			get
@@ -743,28 +1137,32 @@ namespace Proyecto_Final_Yoel
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Cantidad", DbType="Int")]
-		public System.Nullable<int> Cantidad
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdCategoria", DbType="Int")]
+		public System.Nullable<int> IdCategoria
 		{
 			get
 			{
-				return this._Cantidad;
+				return this._IdCategoria;
 			}
 			set
 			{
-				if ((this._Cantidad != value))
+				if ((this._IdCategoria != value))
 				{
-					this.OnCantidadChanging(value);
+					if (this._Categorias.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnIdCategoriaChanging(value);
 					this.SendPropertyChanging();
-					this._Cantidad = value;
-					this.SendPropertyChanged("Cantidad");
-					this.OnCantidadChanged();
+					this._IdCategoria = value;
+					this.SendPropertyChanged("IdCategoria");
+					this.OnIdCategoriaChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Precio", DbType="Money")]
-		public System.Nullable<decimal> Precio
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Precio", DbType="Decimal(10,2) NOT NULL")]
+		public decimal Precio
 		{
 			get
 			{
@@ -783,16 +1181,70 @@ namespace Proyecto_Final_Yoel
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Stock_Transacciones", Storage="_Transacciones", ThisKey="ID_Stock", OtherKey="ID_Stock")]
-		public EntitySet<Transacciones> Transacciones
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Cantidad", DbType="Int NOT NULL")]
+		public int Cantidad
 		{
 			get
 			{
-				return this._Transacciones;
+				return this._Cantidad;
 			}
 			set
 			{
-				this._Transacciones.Assign(value);
+				if ((this._Cantidad != value))
+				{
+					this.OnCantidadChanging(value);
+					this.SendPropertyChanging();
+					this._Cantidad = value;
+					this.SendPropertyChanged("Cantidad");
+					this.OnCantidadChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Stock_DetalleTransaccion", Storage="_DetalleTransaccion", ThisKey="IdStock", OtherKey="IdItem")]
+		public EntitySet<DetalleTransaccion> DetalleTransaccion
+		{
+			get
+			{
+				return this._DetalleTransaccion;
+			}
+			set
+			{
+				this._DetalleTransaccion.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Categorias_Stock", Storage="_Categorias", ThisKey="IdCategoria", OtherKey="IdCategoria", IsForeignKey=true)]
+		public Categorias Categorias
+		{
+			get
+			{
+				return this._Categorias.Entity;
+			}
+			set
+			{
+				Categorias previousValue = this._Categorias.Entity;
+				if (((previousValue != value) 
+							|| (this._Categorias.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Categorias.Entity = null;
+						previousValue.Stock.Remove(this);
+					}
+					this._Categorias.Entity = value;
+					if ((value != null))
+					{
+						value.Stock.Add(this);
+						this._IdCategoria = value.IdCategoria;
+					}
+					else
+					{
+						this._IdCategoria = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Categorias");
+				}
 			}
 		}
 		
@@ -816,13 +1268,13 @@ namespace Proyecto_Final_Yoel
 			}
 		}
 		
-		private void attach_Transacciones(Transacciones entity)
+		private void attach_DetalleTransaccion(DetalleTransaccion entity)
 		{
 			this.SendPropertyChanging();
 			entity.Stock = this;
 		}
 		
-		private void detach_Transacciones(Transacciones entity)
+		private void detach_DetalleTransaccion(DetalleTransaccion entity)
 		{
 			this.SendPropertyChanging();
 			entity.Stock = null;

@@ -12,7 +12,7 @@ namespace Proyecto_Final_Yoel.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.10.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "18.8.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -31,6 +31,28 @@ namespace Proyecto_Final_Yoel.Properties {
         public string PROYECTOConnectionString {
             get {
                 return ((string)(this["PROYECTOConnectionString"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=PTL-243\\SQLEXPRESS2022;Initial Catalog=Proyecto_Final_Yoel;Integrated" +
+            " Security=True;TrustServerCertificate=True")]
+        public string Proyecto_Final_YoelConnectionString {
+            get {
+                return ((string)(this["Proyecto_Final_YoelConnectionString"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=PTL-243\\SQLEXPRESS2022;Initial Catalog=Proyecto_Final_Yoel;Integrated" +
+            " Security=True;Encrypt=True;TrustServerCertificate=True")]
+        public string Proyecto_Final_YoelConnectionString1 {
+            get {
+                return ((string)(this["Proyecto_Final_YoelConnectionString1"]));
             }
         }
     }

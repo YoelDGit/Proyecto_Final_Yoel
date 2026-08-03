@@ -32,14 +32,14 @@ namespace Proyecto_Final_Yoel
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Pagina_Principal));
             this.panel1 = new System.Windows.Forms.Panel();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.panelContenedor = new System.Windows.Forms.Panel();
             this.button6 = new System.Windows.Forms.Button();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.button5 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.buttonClientes = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.panelContenedor = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
@@ -61,28 +61,6 @@ namespace Proyecto_Final_Yoel
             this.panel1.Size = new System.Drawing.Size(800, 70);
             this.panel1.TabIndex = 2;
             // 
-            // imageList1
-            // 
-            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList1.Images.SetKeyName(0, "tra.png");
-            this.imageList1.Images.SetKeyName(1, "stock.jpg");
-            this.imageList1.Images.SetKeyName(2, "cliente.jpg");
-            this.imageList1.Images.SetKeyName(3, "config.png");
-            this.imageList1.Images.SetKeyName(4, "istockphoto-1474567468-170667a.jpg");
-            this.imageList1.Images.SetKeyName(5, "erbsbsdv.png");
-            // 
-            // panelContenedor
-            // 
-            this.panelContenedor.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelContenedor.Location = new System.Drawing.Point(-2, 144);
-            this.panelContenedor.Name = "panelContenedor";
-            this.panelContenedor.Size = new System.Drawing.Size(800, 193);
-            this.panelContenedor.TabIndex = 3;
-            this.panelContenedor.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
-            // 
             // button6
             // 
             this.button6.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -95,6 +73,17 @@ namespace Proyecto_Final_Yoel
             this.button6.Text = "LOGIN";
             this.button6.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.button6.UseVisualStyleBackColor = true;
+            // 
+            // imageList1
+            // 
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "tra.png");
+            this.imageList1.Images.SetKeyName(1, "stock.jpg");
+            this.imageList1.Images.SetKeyName(2, "cliente.jpg");
+            this.imageList1.Images.SetKeyName(3, "config.png");
+            this.imageList1.Images.SetKeyName(4, "istockphoto-1474567468-170667a.jpg");
+            this.imageList1.Images.SetKeyName(5, "erbsbsdv.png");
             // 
             // button5
             // 
@@ -163,6 +152,17 @@ namespace Proyecto_Final_Yoel
             this.button2.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click_1);
+            // 
+            // panelContenedor
+            // 
+            this.panelContenedor.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelContenedor.Location = new System.Drawing.Point(-2, 144);
+            this.panelContenedor.Name = "panelContenedor";
+            this.panelContenedor.Size = new System.Drawing.Size(800, 193);
+            this.panelContenedor.TabIndex = 3;
+            this.panelContenedor.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
             // 
             // panel2
             // 

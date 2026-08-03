@@ -16,5 +16,12 @@ namespace Proyecto_Final_Yoel
         {
             InitializeComponent();
         }
+
+        private void FormTransacciones_Load(object sender, EventArgs e)
+        {
+            // ¡La magia ocurre aquí! Pasa este formulario como parámetro
+            EstiloModerno.AplicarTema(this);
+        }
     }
+
 }

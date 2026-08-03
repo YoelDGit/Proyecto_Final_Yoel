@@ -48,7 +48,8 @@ namespace Proyecto_Final_Yoel
 
         private void Pagina_Principal_Load(object sender, EventArgs e)
         {
-
+            // ¡La magia ocurre aquí! Pasa este formulario como parámetro
+            EstiloModerno.AplicarTema(this);
         }
 
         private void button3_Click(object sender, EventArgs e)

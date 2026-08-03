@@ -22,6 +22,12 @@ namespace Proyecto_Final_Yoel
         ConexionDBDataContext ConexionData = new ConexionDBDataContext();
         private Timer timer;
 
+        private void Login_Load(object sender, EventArgs e)
+        {
+            // ¡La magia ocurre aquí! Pasa este formulario como parámetro
+            EstiloModerno.AplicarTema(this);
+        }
+
         private void InicializarTimer()
         {
             // Crear e inicializar el Timer
@@ -70,10 +76,7 @@ namespace Proyecto_Final_Yoel
                 MessageBox.Show("Usuario o contraseña incorrectos", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        private void Login_Load(object sender, EventArgs e)
-        {
 
-        }
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
@@ -118,7 +121,7 @@ namespace Proyecto_Final_Yoel
 
                     // Asignamos las propiedades
                     nuevoUsuario.Usuario = txtUsuario.Text.Trim();
-                    nuevoUsuario.Contrasenia = txtContrasena.Text.Trim();
+                    nuevoUsuario.Contrasena = txtContrasena.Text.Trim();
 
                     // 3. Añadimos el objeto a la colección en plural
                     db.Inicio_Sesion.InsertOnSubmit(nuevoUsuario);
@@ -168,7 +171,7 @@ namespace Proyecto_Final_Yoel
                     // 2. Buscamos mediante LINQ si existe el registro en la base de datos
                     // (Mantenemos tu propiedad exacta 'Contrasenia')
                     bool usuarioValido = db.Inicio_Sesion.Any(u => u.Usuario == usuarioIntroducido
-                                                                && u.Contrasenia == contrasenaIntroducida);
+                                                                && u.Contrasena == contrasenaIntroducida);
 
                     if (usuarioValido)
                     {

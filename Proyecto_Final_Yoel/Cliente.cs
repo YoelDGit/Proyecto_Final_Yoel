@@ -20,6 +20,13 @@ namespace Proyecto_Final_Yoel
             this.AutoScaleMode = AutoScaleMode.Inherit;
         }
 
+
+        private void Cliente_Load(object sender, EventArgs e)
+        {
+            // ¡La magia ocurre aquí! Pasa este formulario como parámetro
+            EstiloModerno.AplicarTema(this);
+        } 
+
         private void label1_Click(object sender, EventArgs e)
         {
         }
