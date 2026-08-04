@@ -161,6 +161,7 @@ namespace Proyecto_Final_Yoel
             this.button1.TabIndex = 11;
             this.button1.Text = "Agregar";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
@@ -171,6 +172,7 @@ namespace Proyecto_Final_Yoel
             this.button2.TabIndex = 12;
             this.button2.Text = "Modificar";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button3
             // 
@@ -181,6 +183,7 @@ namespace Proyecto_Final_Yoel
             this.button3.TabIndex = 13;
             this.button3.Text = "Eliminar";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button4
             // 
@@ -191,6 +194,7 @@ namespace Proyecto_Final_Yoel
             this.button4.TabIndex = 14;
             this.button4.Text = "Salir";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // groupBox1
             // 
@@ -244,6 +248,7 @@ namespace Proyecto_Final_Yoel
             this.textBox6.Name = "textBox6";
             this.textBox6.Size = new System.Drawing.Size(220, 20);
             this.textBox6.TabIndex = 13;
+            this.textBox6.TextChanged += new System.EventHandler(this.textBox6_TextChanged);
             // 
             // Cliente
             // 
@@ -257,6 +262,7 @@ namespace Proyecto_Final_Yoel
             this.Controls.Add(this.dataGridView1);
             this.Name = "Cliente";
             this.Text = "Cliente";
+            this.Load += new System.EventHandler(this.Cliente_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

@@ -284,6 +284,7 @@ namespace Proyecto_Final_Yoel
             this.Controls.Add(this.panel2);
             this.Name = "FrmStock";
             this.Text = "Stock";
+            this.Load += new System.EventHandler(this.FrmStock_Load);
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.groupBox1.ResumeLayout(false);
