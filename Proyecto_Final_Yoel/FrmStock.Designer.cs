@@ -29,6 +29,7 @@ namespace Proyecto_Final_Yoel
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.panel2 = new System.Windows.Forms.Panel();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -51,17 +52,21 @@ namespace Proyecto_Final_Yoel
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.proyecto_Final_YoelDataSet = new Proyecto_Final_Yoel.Proyecto_Final_YoelDataSet();
+            this.proyectoFinalYoelDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.proyecto_Final_YoelDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.proyectoFinalYoelDataSetBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.dataGridView1);
-            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.Controls.Add(this.dataGridView1);
             this.panel2.Location = new System.Drawing.Point(12, 250);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(613, 149);
@@ -112,6 +117,7 @@ namespace Proyecto_Final_Yoel
             this.textBox6.Name = "textBox6";
             this.textBox6.Size = new System.Drawing.Size(169, 20);
             this.textBox6.TabIndex = 44;
+            this.textBox6.TextChanged += new System.EventHandler(this.textBox6_TextChanged);
             // 
             // label8
             // 
@@ -119,7 +125,7 @@ namespace Proyecto_Final_Yoel
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.Location = new System.Drawing.Point(368, 204);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(53, 16);
+            this.label8.Size = new System.Drawing.Size(52, 16);
             this.label8.TabIndex = 43;
             this.label8.Text = "Buscar:";
             // 
@@ -188,6 +194,7 @@ namespace Proyecto_Final_Yoel
             this.button3.TabIndex = 35;
             this.button3.Text = "Cerrar";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button2
             // 
@@ -198,6 +205,7 @@ namespace Proyecto_Final_Yoel
             this.button2.TabIndex = 34;
             this.button2.Text = "Modificar";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button1
             // 
@@ -208,6 +216,7 @@ namespace Proyecto_Final_Yoel
             this.button1.TabIndex = 33;
             this.button1.Text = "Eliminar";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button5
             // 
@@ -218,6 +227,7 @@ namespace Proyecto_Final_Yoel
             this.button5.TabIndex = 32;
             this.button5.Text = "Agregar";
             this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // label7
             // 
@@ -225,7 +235,7 @@ namespace Proyecto_Final_Yoel
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.Location = new System.Drawing.Point(312, 97);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(65, 16);
+            this.label7.Size = new System.Drawing.Size(64, 16);
             this.label7.TabIndex = 31;
             this.label7.Text = "Cantidad:";
             // 
@@ -235,7 +245,7 @@ namespace Proyecto_Final_Yoel
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.Location = new System.Drawing.Point(324, 68);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(50, 16);
+            this.label6.Size = new System.Drawing.Size(49, 16);
             this.label6.TabIndex = 30;
             this.label6.Text = "Precio:";
             // 
@@ -245,7 +255,7 @@ namespace Proyecto_Final_Yoel
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(307, 38);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(70, 16);
+            this.label5.Size = new System.Drawing.Size(69, 16);
             this.label5.TabIndex = 29;
             this.label5.Text = "Categoría:";
             // 
@@ -255,7 +265,7 @@ namespace Proyecto_Final_Yoel
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(3, 97);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(79, 16);
+            this.label4.Size = new System.Drawing.Size(78, 16);
             this.label4.TabIndex = 28;
             this.label4.Text = "Descipcion:";
             // 
@@ -265,7 +275,7 @@ namespace Proyecto_Final_Yoel
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(3, 68);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(76, 16);
+            this.label3.Size = new System.Drawing.Size(75, 16);
             this.label3.TabIndex = 27;
             this.label3.Text = "Item Name:";
             // 
@@ -275,9 +285,19 @@ namespace Proyecto_Final_Yoel
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(20, 38);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(52, 16);
+            this.label2.Size = new System.Drawing.Size(51, 16);
             this.label2.TabIndex = 26;
             this.label2.Text = "Item ID:";
+            // 
+            // proyecto_Final_YoelDataSet
+            // 
+            this.proyecto_Final_YoelDataSet.DataSetName = "Proyecto_Final_YoelDataSet";
+            this.proyecto_Final_YoelDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // proyectoFinalYoelDataSetBindingSource
+            // 
+            this.proyectoFinalYoelDataSetBindingSource.DataSource = this.proyecto_Final_YoelDataSet;
+            this.proyectoFinalYoelDataSetBindingSource.Position = 0;
             // 
             // FrmStock
             // 
@@ -293,6 +313,8 @@ namespace Proyecto_Final_Yoel
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.proyecto_Final_YoelDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.proyectoFinalYoelDataSetBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -320,5 +342,7 @@ namespace Proyecto_Final_Yoel
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.BindingSource proyectoFinalYoelDataSetBindingSource;
+        private Proyecto_Final_YoelDataSet proyecto_Final_YoelDataSet;
     }
 }

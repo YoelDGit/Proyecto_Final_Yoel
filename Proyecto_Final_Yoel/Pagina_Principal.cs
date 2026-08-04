@@ -66,5 +66,10 @@ namespace Proyecto_Final_Yoel
         {
             AbrirFormularioEnPanel(new FormTransacciones());
         }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

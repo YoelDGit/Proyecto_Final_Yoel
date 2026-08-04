@@ -97,6 +97,7 @@ namespace Proyecto_Final_Yoel
             this.button5.Text = "CONF";
             this.button5.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // button1
             // 
@@ -190,12 +191,12 @@ namespace Proyecto_Final_Yoel
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(900, 650);
-            this.MinimumSize = new System.Drawing.Size(916, 689);
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panelContenedor);
+            this.MinimumSize = new System.Drawing.Size(916, 689);
             this.Name = "Pagina_Principal";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Pagina Principal";
             this.Load += new System.EventHandler(this.Pagina_Principal_Load);
             this.panel1.ResumeLayout(false);
