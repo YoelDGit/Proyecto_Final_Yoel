@@ -54,6 +54,7 @@ namespace Proyecto_Final_Yoel
             this.button1 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -82,6 +83,7 @@ namespace Proyecto_Final_Yoel
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -98,7 +100,7 @@ namespace Proyecto_Final_Yoel
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(774, 379);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "tabPage2";
+            this.tabPage2.Text = "Salidas";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // panel4
@@ -330,6 +332,15 @@ namespace Proyecto_Final_Yoel
             this.label1.TabIndex = 0;
             this.label1.Text = "Clientes:";
             // 
+            // tabPage1
+            // 
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Size = new System.Drawing.Size(774, 379);
+            this.tabPage1.TabIndex = 2;
+            this.tabPage1.Text = "Devueltos";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
             // FormTransacciones
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -360,7 +371,18 @@ namespace Proyecto_Final_Yoel
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.DataGridView dataGridView2;
         private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.TextBox textBox2;
@@ -370,16 +392,6 @@ namespace Proyecto_Final_Yoel
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.DataGridView dataGridView2;
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.TextBox textBox6;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Panel panel5;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.TabPage tabPage1;
     }
 }
