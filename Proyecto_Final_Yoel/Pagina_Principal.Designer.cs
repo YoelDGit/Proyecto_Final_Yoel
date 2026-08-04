@@ -58,7 +58,7 @@ namespace Proyecto_Final_Yoel
             this.panel1.Controls.Add(this.button2);
             this.panel1.Location = new System.Drawing.Point(-2, 71);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(800, 70);
+            this.panel1.Size = new System.Drawing.Size(900, 70);
             this.panel1.TabIndex = 2;
             // 
             // button6
@@ -160,7 +160,7 @@ namespace Proyecto_Final_Yoel
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelContenedor.Location = new System.Drawing.Point(-2, 144);
             this.panelContenedor.Name = "panelContenedor";
-            this.panelContenedor.Size = new System.Drawing.Size(800, 193);
+            this.panelContenedor.Size = new System.Drawing.Size(900, 512);
             this.panelContenedor.TabIndex = 3;
             this.panelContenedor.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
             // 
@@ -170,7 +170,7 @@ namespace Proyecto_Final_Yoel
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(800, 64);
+            this.panel2.Size = new System.Drawing.Size(900, 64);
             this.panel2.TabIndex = 4;
             // 
             // label1
@@ -189,7 +189,9 @@ namespace Proyecto_Final_Yoel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 331);
+            this.ClientSize = new System.Drawing.Size(900, 650);
+            this.MinimumSize = new System.Drawing.Size(916, 689);
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panelContenedor);

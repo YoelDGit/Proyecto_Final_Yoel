@@ -54,6 +54,9 @@ namespace Proyecto_Final_Yoel
             // 
             // dataGridView1
             // 
+            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(12, 231);
             this.dataGridView1.Name = "dataGridView1";
@@ -232,6 +235,7 @@ namespace Proyecto_Final_Yoel
             // 
             // label7
             // 
+            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.Location = new System.Drawing.Point(499, 209);
@@ -243,6 +247,7 @@ namespace Proyecto_Final_Yoel
             // 
             // textBox6
             // 
+            this.textBox6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox6.Location = new System.Drawing.Point(558, 205);
             this.textBox6.Multiline = true;
             this.textBox6.Name = "textBox6";

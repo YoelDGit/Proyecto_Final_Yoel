@@ -59,6 +59,9 @@ namespace Proyecto_Final_Yoel
             // panel2
             // 
             this.panel2.Controls.Add(this.dataGridView1);
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.Location = new System.Drawing.Point(12, 250);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(613, 149);
@@ -67,6 +70,7 @@ namespace Proyecto_Final_Yoel
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.Location = new System.Drawing.Point(0, 0);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(613, 149);
