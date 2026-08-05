@@ -140,6 +140,25 @@ namespace Proyecto_Final_Yoel
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "UNID",
+            "CAJA",
+            "PAR",
+            "SET",
+            "PAQ",
+            "DOC",
+            "PAL",
+            "KG",
+            "G",
+            "LB",
+            "T",
+            "L",
+            "ML",
+            "M3",
+            "GAL",
+            "M",
+            "CM",
+            "M2"});
             this.comboBox1.Location = new System.Drawing.Point(499, 97);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(88, 28);

@@ -66,7 +66,7 @@ namespace Proyecto_Final_Yoel
             this.button6.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.button6.ImageIndex = 5;
             this.button6.ImageList = this.imageList1;
-            this.button6.Location = new System.Drawing.Point(491, 7);
+            this.button6.Location = new System.Drawing.Point(356, 7);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(80, 60);
             this.button6.TabIndex = 5;
@@ -90,7 +90,7 @@ namespace Proyecto_Final_Yoel
             this.button5.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.button5.ImageIndex = 3;
             this.button5.ImageList = this.imageList1;
-            this.button5.Location = new System.Drawing.Point(356, 7);
+            this.button5.Location = new System.Drawing.Point(442, 7);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(80, 60);
             this.button5.TabIndex = 4;
@@ -159,14 +159,16 @@ namespace Proyecto_Final_Yoel
             this.panelContenedor.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelContenedor.AutoSize = true;
             this.panelContenedor.Location = new System.Drawing.Point(-2, 144);
             this.panelContenedor.Name = "panelContenedor";
-            this.panelContenedor.Size = new System.Drawing.Size(900, 512);
+            this.panelContenedor.Size = new System.Drawing.Size(900, 502);
             this.panelContenedor.TabIndex = 3;
             this.panelContenedor.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
             // 
             // panel2
             // 
+            this.panel2.BackColor = System.Drawing.Color.Cyan;
             this.panel2.Controls.Add(this.label1);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
@@ -177,14 +179,14 @@ namespace Proyecto_Final_Yoel
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             this.label1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label1.Font = new System.Drawing.Font("Comic Sans MS", 36F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Constantia", 48F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(0, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(798, 68);
-            this.label1.TabIndex = 2;
+            this.label1.Size = new System.Drawing.Size(947, 78);
+            this.label1.TabIndex = 0;
             this.label1.Text = "Sistema de Gestion de Inventarios";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // Pagina_Principal
             // 
@@ -203,6 +205,7 @@ namespace Proyecto_Final_Yoel
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

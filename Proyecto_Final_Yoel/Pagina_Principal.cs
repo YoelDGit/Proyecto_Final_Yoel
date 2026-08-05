@@ -69,6 +69,11 @@ namespace Proyecto_Final_Yoel
 
         private void button5_Click(object sender, EventArgs e)
         {
+            AbrirFormularioEnPanel(new Configuración());
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
 
         }
     }
