@@ -33,6 +33,7 @@ namespace Proyecto_Final_Yoel
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.textBox9 = new System.Windows.Forms.TextBox();
             this.panel5 = new System.Windows.Forms.Panel();
             this.button4 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
@@ -77,7 +78,9 @@ namespace Proyecto_Final_Yoel
             this.button10 = new System.Windows.Forms.Button();
             this.button11 = new System.Windows.Forms.Button();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
-            this.textBox9 = new System.Windows.Forms.TextBox();
+            this.panel10 = new System.Windows.Forms.Panel();
+            this.panel11 = new System.Windows.Forms.Panel();
+            this.panel12 = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -94,6 +97,8 @@ namespace Proyecto_Final_Yoel
             this.panel6.SuspendLayout();
             this.panel7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
+            this.panel11.SuspendLayout();
+            this.panel12.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -138,14 +143,20 @@ namespace Proyecto_Final_Yoel
             // 
             this.panel4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.panel4.AutoSize = true;
-            this.panel4.Controls.Add(this.textBox9);
+            this.panel4.Controls.Add(this.panel12);
             this.panel4.Controls.Add(this.panel5);
-            this.panel4.Controls.Add(this.button6);
             this.panel4.Controls.Add(this.dataGridView2);
             this.panel4.Location = new System.Drawing.Point(0, 231);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(774, 148);
             this.panel4.TabIndex = 2;
+            // 
+            // textBox9
+            // 
+            this.textBox9.Location = new System.Drawing.Point(102, 3);
+            this.textBox9.Name = "textBox9";
+            this.textBox9.Size = new System.Drawing.Size(100, 20);
+            this.textBox9.TabIndex = 24;
             // 
             // panel5
             // 
@@ -167,7 +178,7 @@ namespace Proyecto_Final_Yoel
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(85, 25);
             this.button4.TabIndex = 25;
-            this.button4.Text = "Salir";
+            this.button4.Text = "Limpiar";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
@@ -207,7 +218,7 @@ namespace Proyecto_Final_Yoel
             // button6
             // 
             this.button6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button6.Location = new System.Drawing.Point(7, 3);
+            this.button6.Location = new System.Drawing.Point(11, 3);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(85, 25);
             this.button6.TabIndex = 22;
@@ -217,40 +228,36 @@ namespace Proyecto_Final_Yoel
             // 
             // dataGridView2
             // 
-            this.dataGridView2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Location = new System.Drawing.Point(6, 29);
+            this.dataGridView2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView2.Location = new System.Drawing.Point(0, 0);
             this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.Size = new System.Drawing.Size(764, 85);
+            this.dataGridView2.Size = new System.Drawing.Size(774, 148);
             this.dataGridView2.TabIndex = 17;
             // 
             // panel3
             // 
             this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.panel3.AutoSize = true;
+            this.panel3.Controls.Add(this.panel11);
             this.panel3.Controls.Add(this.dataGridView1);
-            this.panel3.Controls.Add(this.textBox6);
-            this.panel3.Controls.Add(this.label7);
-            this.panel3.Controls.Add(this.label5);
             this.panel3.Location = new System.Drawing.Point(0, 86);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(774, 138);
+            this.panel3.Size = new System.Drawing.Size(777, 138);
             this.panel3.TabIndex = 2;
             // 
             // dataGridView1
             // 
-            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(7, 26);
+            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView1.Location = new System.Drawing.Point(0, 0);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(764, 103);
+            this.dataGridView1.Size = new System.Drawing.Size(777, 138);
             this.dataGridView1.TabIndex = 16;
             // 
             // textBox6
             // 
-            this.textBox6.Location = new System.Drawing.Point(551, 5);
+            this.textBox6.Location = new System.Drawing.Point(548, 2);
             this.textBox6.Multiline = true;
             this.textBox6.Name = "textBox6";
             this.textBox6.Size = new System.Drawing.Size(220, 20);
@@ -261,7 +268,7 @@ namespace Proyecto_Final_Yoel
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(492, 6);
+            this.label7.Location = new System.Drawing.Point(492, 3);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(52, 16);
             this.label7.TabIndex = 14;
@@ -271,7 +278,7 @@ namespace Proyecto_Final_Yoel
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(3, 3);
+            this.label5.Location = new System.Drawing.Point(7, 3);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(167, 20);
             this.label5.TabIndex = 1;
@@ -451,6 +458,7 @@ namespace Proyecto_Final_Yoel
             this.button12.TabIndex = 2;
             this.button12.Text = "Buscar";
             this.button12.UseVisualStyleBackColor = true;
+            this.button12.Click += new System.EventHandler(this.button12_Click);
             // 
             // textBox8
             // 
@@ -476,10 +484,11 @@ namespace Proyecto_Final_Yoel
             // 
             this.panel8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.panel8.AutoSize = true;
-            this.panel8.Controls.Add(this.dataGridView4);
             this.panel8.Controls.Add(this.textBox4);
             this.panel8.Controls.Add(this.label6);
             this.panel8.Controls.Add(this.label8);
+            this.panel8.Controls.Add(this.panel10);
+            this.panel8.Controls.Add(this.dataGridView4);
             this.panel8.Location = new System.Drawing.Point(0, 88);
             this.panel8.Name = "panel8";
             this.panel8.Size = new System.Drawing.Size(774, 138);
@@ -487,12 +496,11 @@ namespace Proyecto_Final_Yoel
             // 
             // dataGridView4
             // 
-            this.dataGridView4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView4.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView4.Location = new System.Drawing.Point(7, 26);
+            this.dataGridView4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView4.Location = new System.Drawing.Point(0, 0);
             this.dataGridView4.Name = "dataGridView4";
-            this.dataGridView4.Size = new System.Drawing.Size(764, 103);
+            this.dataGridView4.Size = new System.Drawing.Size(774, 138);
             this.dataGridView4.TabIndex = 16;
             // 
             // textBox4
@@ -502,6 +510,7 @@ namespace Proyecto_Final_Yoel
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(220, 20);
             this.textBox4.TabIndex = 15;
+            this.textBox4.TextChanged += new System.EventHandler(this.textBox4_TextChanged);
             // 
             // label6
             // 
@@ -555,8 +564,9 @@ namespace Proyecto_Final_Yoel
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(85, 25);
             this.button7.TabIndex = 25;
-            this.button7.Text = "Salir";
+            this.button7.Text = "Limpiar";
             this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // button8
             // 
@@ -567,6 +577,7 @@ namespace Proyecto_Final_Yoel
             this.button8.TabIndex = 24;
             this.button8.Text = "Eliminar";
             this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
             // button9
             // 
@@ -577,6 +588,7 @@ namespace Proyecto_Final_Yoel
             this.button9.TabIndex = 23;
             this.button9.Text = "Ver Lista";
             this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.button9_Click);
             // 
             // button10
             // 
@@ -587,6 +599,7 @@ namespace Proyecto_Final_Yoel
             this.button10.TabIndex = 22;
             this.button10.Text = "Guardar";
             this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.button10_Click);
             // 
             // button11
             // 
@@ -597,6 +610,7 @@ namespace Proyecto_Final_Yoel
             this.button11.TabIndex = 22;
             this.button11.Text = "Agregar";
             this.button11.UseVisualStyleBackColor = true;
+            this.button11.Click += new System.EventHandler(this.button11_Click);
             // 
             // dataGridView3
             // 
@@ -608,12 +622,34 @@ namespace Proyecto_Final_Yoel
             this.dataGridView3.Size = new System.Drawing.Size(764, 85);
             this.dataGridView3.TabIndex = 17;
             // 
-            // textBox9
+            // panel10
             // 
-            this.textBox9.Location = new System.Drawing.Point(98, 6);
-            this.textBox9.Name = "textBox9";
-            this.textBox9.Size = new System.Drawing.Size(100, 20);
-            this.textBox9.TabIndex = 24;
+            this.panel10.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel10.Location = new System.Drawing.Point(0, 0);
+            this.panel10.Name = "panel10";
+            this.panel10.Size = new System.Drawing.Size(774, 25);
+            this.panel10.TabIndex = 17;
+            // 
+            // panel11
+            // 
+            this.panel11.Controls.Add(this.label5);
+            this.panel11.Controls.Add(this.textBox6);
+            this.panel11.Controls.Add(this.label7);
+            this.panel11.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel11.Location = new System.Drawing.Point(0, 0);
+            this.panel11.Name = "panel11";
+            this.panel11.Size = new System.Drawing.Size(777, 25);
+            this.panel11.TabIndex = 18;
+            // 
+            // panel12
+            // 
+            this.panel12.Controls.Add(this.button6);
+            this.panel12.Controls.Add(this.textBox9);
+            this.panel12.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel12.Location = new System.Drawing.Point(0, 0);
+            this.panel12.Name = "panel12";
+            this.panel12.Size = new System.Drawing.Size(774, 31);
+            this.panel12.TabIndex = 25;
             // 
             // FormTransacciones
             // 
@@ -633,7 +669,6 @@ namespace Proyecto_Final_Yoel
             this.panel5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
@@ -648,6 +683,10 @@ namespace Proyecto_Final_Yoel
             this.panel6.PerformLayout();
             this.panel7.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).EndInit();
+            this.panel11.ResumeLayout(false);
+            this.panel11.PerformLayout();
+            this.panel12.ResumeLayout(false);
+            this.panel12.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -704,5 +743,8 @@ namespace Proyecto_Final_Yoel
         private System.Windows.Forms.TextBox textBox8;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox textBox9;
+        private System.Windows.Forms.Panel panel10;
+        private System.Windows.Forms.Panel panel11;
+        private System.Windows.Forms.Panel panel12;
     }
 }

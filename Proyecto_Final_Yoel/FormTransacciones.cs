@@ -20,6 +20,10 @@ namespace Proyecto_Final_Yoel
         // Carrito de la venta en curso (aún no guardado en la base de datos)
         private BindingList<ItemCarrito> carrito = new BindingList<ItemCarrito>();
 
+        // --- Igual que arriba, pero para la pestaña "Devueltos" ---
+        private string clienteDevolucionId = null;
+        private BindingList<ItemCarrito> carritoDevolucion = new BindingList<ItemCarrito>();
+
         public FormTransacciones()
         {
             InitializeComponent();
@@ -32,6 +36,9 @@ namespace Proyecto_Final_Yoel
 
             textBox2.ReadOnly = true; // Nombre del cliente: solo lectura, viene de la búsqueda
             textBox3.ReadOnly = true; // Apellido del cliente: solo lectura
+
+            textBox7.ReadOnly = true; // Nombre del cliente (Devueltos)
+            textBox5.ReadOnly = true; // Apellido del cliente (Devueltos)
 
             ConfigurarGrids();
             CargarProductosDisponibles();
@@ -53,6 +60,20 @@ namespace Proyecto_Final_Yoel
             dataGridView2.MultiSelect = false;
             dataGridView2.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridView2.DataSource = carrito;
+
+            // --- Devueltos ---
+            dataGridView4.AutoGenerateColumns = true;
+            dataGridView4.ReadOnly = true;
+            dataGridView4.AllowUserToAddRows = false;
+            dataGridView4.MultiSelect = false;
+            dataGridView4.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+
+            dataGridView3.AutoGenerateColumns = true;
+            dataGridView3.ReadOnly = true;
+            dataGridView3.AllowUserToAddRows = false;
+            dataGridView3.MultiSelect = false;
+            dataGridView3.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGridView3.DataSource = carritoDevolucion;
         }
 
         // Lista de productos disponibles (columna izquierda / superior), con búsqueda opcional
@@ -278,6 +299,252 @@ namespace Proyecto_Final_Yoel
             textBox3.Clear();
             carrito.Clear();
             CargarProductosDisponibles();
+        }
+
+        // ================== PESTAÑA "DEVUELTOS" ==================
+        //
+        // Solo se puede devolver lo que el cliente ya compró (Tipo="Salida")
+        // y que no haya devuelto ya antes. Por eso dataGridView4 no muestra
+        // todo el Stock (como en Salidas), sino solo lo que ESE cliente
+        // tiene pendiente de devolver.
+
+        // ---------- BUSCAR CLIENTE (Devueltos) ----------
+
+        private void button12_Click(object sender, EventArgs e) // Buscar (cliente, Devueltos)
+        {
+            string idInput = textBox8.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(idInput))
+            {
+                MessageBox.Show("Escribe un Cliente ID para buscar.", "Aviso",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            string idBuscado = idInput;
+            if (int.TryParse(idInput, out int idNumero))
+            {
+                idBuscado = idNumero.ToString().PadLeft(7, '0');
+            }
+
+            var cliente = db.Clientes.FirstOrDefault(c => c.IdCliente == idBuscado);
+
+            if (cliente == null)
+            {
+                MessageBox.Show("No se encontró ningún cliente con ese ID.", "Cliente no encontrado",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                clienteDevolucionId = null;
+                textBox7.Clear();
+                textBox5.Clear();
+                dataGridView4.DataSource = null;
+                return;
+            }
+
+            clienteDevolucionId = cliente.IdCliente;
+            textBox8.Text = cliente.IdCliente;
+            textBox7.Text = cliente.Nombre;
+            textBox5.Text = cliente.Apellidos;
+
+            CargarProductosDevolvibles(clienteDevolucionId);
+        }
+
+        // Solo productos que el cliente compró y aún no ha devuelto del todo
+        private void CargarProductosDevolvibles(string idCliente, string filtro = "")
+        {
+            if (string.IsNullOrWhiteSpace(idCliente))
+            {
+                dataGridView4.DataSource = null;
+                return;
+            }
+
+            var comprado = db.DetalleTransaccion
+                .Where(d => d.Transacciones.IdCliente == idCliente && d.Transacciones.Tipo == "Salida")
+                .GroupBy(d => d.IdItem)
+                .Select(g => new { IdItem = g.Key, Cantidad = g.Sum(x => x.Cantidad) })
+                .ToList();
+
+            var devuelto = db.DetalleTransaccion
+                .Where(d => d.Transacciones.IdCliente == idCliente && d.Transacciones.Tipo == "Devolucion")
+                .GroupBy(d => d.IdItem)
+                .Select(g => new { IdItem = g.Key, Cantidad = g.Sum(x => x.Cantidad) })
+                .ToList();
+
+            var idsComprados = comprado.Select(c => c.IdItem).ToList();
+            var infoItems = db.Stock.Where(s => idsComprados.Contains(s.IdStock)).ToList();
+
+            var disponibles = comprado
+                .Select(c => new
+                {
+                    c.IdItem,
+                    CantidadDisponibleParaDevolver = c.Cantidad - (devuelto.FirstOrDefault(d => d.IdItem == c.IdItem)?.Cantidad ?? 0)
+                })
+                .Where(x => x.CantidadDisponibleParaDevolver > 0)
+                .Join(infoItems, x => x.IdItem, s => s.IdStock, (x, s) => new
+                {
+                    s.IdStock,
+                    s.Nombre,
+                    s.Precio,
+                    x.CantidadDisponibleParaDevolver
+                });
+
+            if (!string.IsNullOrWhiteSpace(filtro))
+            {
+                disponibles = disponibles.Where(d => d.Nombre.Contains(filtro) || d.IdStock.Contains(filtro));
+            }
+
+            dataGridView4.DataSource = disponibles.OrderBy(d => d.IdStock).ToList();
+        }
+
+        private void textBox4_TextChanged(object sender, EventArgs e)
+        {
+            CargarProductosDevolvibles(clienteDevolucionId, textBox4.Text.Trim());
+        }
+
+        // ---------- AGREGAR ÍTEM AL CARRITO DE DEVOLUCIÓN ----------
+
+        private void button11_Click(object sender, EventArgs e) // Agregar (Devueltos)
+        {
+            if (dataGridView4.CurrentRow == null)
+            {
+                MessageBox.Show("Selecciona un producto de la lista.", "Aviso",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            string idItem = dataGridView4.CurrentRow.Cells["IdStock"].Value.ToString();
+            string nombre = dataGridView4.CurrentRow.Cells["Nombre"].Value.ToString();
+            decimal precio = Convert.ToDecimal(dataGridView4.CurrentRow.Cells["Precio"].Value);
+            int disponibleParaDevolver = Convert.ToInt32(dataGridView4.CurrentRow.Cells["CantidadDisponibleParaDevolver"].Value);
+
+            var enCarrito = carritoDevolucion.FirstOrDefault(c => c.IdItem == idItem);
+            int yaEnCarrito = enCarrito?.Cantidad ?? 0;
+
+            if (yaEnCarrito + 1 > disponibleParaDevolver)
+            {
+                MessageBox.Show($"No puedes devolver más de lo comprado. Disponible para devolver: {disponibleParaDevolver}.",
+                    "Cantidad excedida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (enCarrito != null)
+            {
+                enCarrito.Cantidad += 1;
+                dataGridView3.Refresh();
+            }
+            else
+            {
+                carritoDevolucion.Add(new ItemCarrito
+                {
+                    IdItem = idItem,
+                    Nombre = nombre,
+                    Cantidad = 1,
+                    PrecioUnitario = precio
+                });
+            }
+        }
+
+        // ---------- ELIMINAR ÍTEM DEL CARRITO DE DEVOLUCIÓN ----------
+
+        private void button8_Click(object sender, EventArgs e) // Eliminar (Devueltos)
+        {
+            if (dataGridView3.CurrentRow == null)
+            {
+                MessageBox.Show("Selecciona un ítem de la lista para quitarlo.", "Aviso",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            var item = (ItemCarrito)dataGridView3.CurrentRow.DataBoundItem;
+            carritoDevolucion.Remove(item);
+        }
+
+        // ---------- VER LISTA (Devueltos) ----------
+
+        private void button9_Click(object sender, EventArgs e) // Ver Lista (Devueltos)
+        {
+            if (carritoDevolucion.Count == 0)
+            {
+                MessageBox.Show("No hay productos en la devolución.", "Lista de productos a devolver",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            decimal total = carritoDevolucion.Sum(c => c.Subtotal);
+            MessageBox.Show($"{carritoDevolucion.Count} producto(s) a devolver.\nTotal a reembolsar: {total:C2}",
+                "Lista de productos a devolver", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        // ---------- GUARDAR LA DEVOLUCIÓN ----------
+
+        private void button10_Click(object sender, EventArgs e) // Guardar (Devueltos)
+        {
+            if (string.IsNullOrWhiteSpace(clienteDevolucionId))
+            {
+                MessageBox.Show("Busca y selecciona un cliente antes de guardar.", "Aviso",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (carritoDevolucion.Count == 0)
+            {
+                MessageBox.Show("Añade al menos un producto a devolver.", "Aviso",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            try
+            {
+                Transacciones nuevaDevolucion = new Transacciones
+                {
+                    IdCliente = clienteDevolucionId,
+                    Fecha = DateTime.Now,
+                    Tipo = "Devolucion"
+                };
+
+                db.Transacciones.InsertOnSubmit(nuevaDevolucion);
+                db.SubmitChanges(); // Necesario para obtener el IdTransaccion autogenerado
+
+                foreach (var item in carritoDevolucion)
+                {
+                    DetalleTransaccion detalle = new DetalleTransaccion
+                    {
+                        IdTransaccion = nuevaDevolucion.IdTransaccion,
+                        IdItem = item.IdItem,
+                        Cantidad = item.Cantidad,
+                        PrecioUnitario = item.PrecioUnitario
+                    };
+                    db.DetalleTransaccion.InsertOnSubmit(detalle);
+                }
+
+                db.SubmitChanges(); // El trigger (ya corregido, ver LEEME) SUMA el stock de vuelta
+
+                MessageBox.Show("Devolución guardada correctamente.", "Éxito",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                LimpiarDevolucion();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al guardar la devolución: " + ex.Message, "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        // ---------- SALIR / LIMPIAR (Devueltos) ----------
+
+        private void button7_Click(object sender, EventArgs e) // Salir (Devueltos)
+        {
+            LimpiarDevolucion();
+        }
+
+        private void LimpiarDevolucion()
+        {
+            clienteDevolucionId = null;
+            textBox8.Clear();
+            textBox7.Clear();
+            textBox5.Clear();
+            carritoDevolucion.Clear();
+            dataGridView4.DataSource = null;
         }
     }
 

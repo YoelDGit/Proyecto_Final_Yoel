@@ -1,23 +1,143 @@
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.IO;
 using System.Windows.Forms;
 
 namespace Proyecto_Final_Yoel
 {
+    public enum TemaApp
+    {
+        Predeterminado,
+        Claro,
+        Oscuro
+    }
+
     public static class EstiloModerno
     {
-        // Paleta turquesa/teal extraída de la referencia
-        public static Color FondoBase = Color.FromArgb(245, 247, 248);   // gris casi blanco (fondo general)
-        public static Color FondoTarjeta = Color.FromArgb(240, 244, 248);  // tarjetas/paneles
-        public static Color TextoPrincipal = Color.FromArgb(34, 40, 49);   // gris oscuro (texto principal)
-        public static Color TextoSecundario = Color.FromArgb(107, 114, 128); // gris medio (texto secundario)
-        public static Color Primario = Color.FromArgb(23, 163, 152);       // teal principal (cabeceras, botones)
-        public static Color PrimarioOscuro = Color.FromArgb(14, 122, 114); // teal oscuro (hover/pulsado)
-        public static Color BordeSuave = Color.FromArgb(224, 230, 231);    // gris muy suave (bordes, líneas)
+        // Ruta donde se guarda el tema elegido, para que se recuerde entre ejecuciones
+        private static readonly string RutaConfigTema =
+            Path.Combine(Application.StartupPath, "tema.cfg");
+
+        public static TemaApp TemaActual { get; private set; } = TemaApp.Predeterminado;
+
+        // ---------- PALETA ACTIVA (estos son los valores que usa EstilizarControl) ----------
+        public static Color FondoBase;
+        public static Color FondoTarjeta;
+        public static Color FondoCampo;      // fondo de textboxes / celdas de grid
+        public static Color FilaAlterna;     // fila alterna del DataGridView
+        public static Color TextoPrincipal;
+        public static Color TextoSecundario;
+        public static Color Primario;
+        public static Color PrimarioOscuro;
+        public static Color BordeSuave;
+
+        static EstiloModerno()
+        {
+            TemaActual = CargarTemaGuardado();
+            AplicarPaleta(TemaActual);
+        }
+
+        // ---------- CAMBIAR DE TEMA ----------
 
         /// <summary>
-        /// Aplica el tema turquesa al formulario y a todos sus controles hijos
+        /// Cambia el tema activo, lo guarda para la próxima vez que se abra la app,
+        /// y refresca todos los formularios que estén abiertos ahora mismo.
+        /// </summary>
+        public static void CambiarTema(TemaApp nuevoTema)
+        {
+            TemaActual = nuevoTema;
+            AplicarPaleta(nuevoTema);
+            GuardarTema(nuevoTema);
+            AplicarTemaGlobal();
+        }
+
+        private static void AplicarPaleta(TemaApp tema)
+        {
+            switch (tema)
+            {
+                case TemaApp.Claro:
+                    FondoBase = Color.FromArgb(255, 255, 255);
+                    FondoTarjeta = Color.FromArgb(250, 250, 251);
+                    FondoCampo = Color.White;
+                    FilaAlterna = Color.FromArgb(245, 247, 250);
+                    TextoPrincipal = Color.FromArgb(40, 40, 40);
+                    TextoSecundario = Color.FromArgb(120, 120, 120);
+                    Primario = Color.FromArgb(0, 120, 215);      // azul Windows
+                    PrimarioOscuro = Color.FromArgb(0, 90, 170);
+                    BordeSuave = Color.FromArgb(225, 225, 225);
+                    break;
+
+                case TemaApp.Oscuro:
+                    FondoBase = Color.FromArgb(24, 26, 32);
+                    FondoTarjeta = Color.FromArgb(34, 37, 46);
+                    FondoCampo = Color.FromArgb(44, 47, 56);
+                    FilaAlterna = Color.FromArgb(40, 43, 52);
+                    TextoPrincipal = Color.FromArgb(230, 232, 235);
+                    TextoSecundario = Color.FromArgb(150, 155, 165);
+                    Primario = Color.FromArgb(23, 163, 152);     // mismo teal de marca
+                    PrimarioOscuro = Color.FromArgb(16, 130, 120);
+                    BordeSuave = Color.FromArgb(55, 58, 68);
+                    break;
+
+                case TemaApp.Predeterminado:
+                default:
+                    // El tema turquesa/teal que ya tenías por defecto, sin tocar
+                    FondoBase = Color.FromArgb(245, 247, 248);
+                    FondoTarjeta = Color.FromArgb(240, 244, 248);
+                    FondoCampo = Color.White;
+                    FilaAlterna = Color.FromArgb(240, 248, 247);
+                    TextoPrincipal = Color.FromArgb(34, 40, 49);
+                    TextoSecundario = Color.FromArgb(107, 114, 128);
+                    Primario = Color.FromArgb(23, 163, 152);
+                    PrimarioOscuro = Color.FromArgb(14, 122, 114);
+                    BordeSuave = Color.FromArgb(224, 230, 231);
+                    break;
+            }
+        }
+
+        // ---------- PERSISTENCIA (archivo de texto simple, sin tocar Settings.settings) ----------
+
+        private static TemaApp CargarTemaGuardado()
+        {
+            try
+            {
+                if (File.Exists(RutaConfigTema))
+                {
+                    string texto = File.ReadAllText(RutaConfigTema).Trim();
+                    if (Enum.TryParse(texto, out TemaApp temaGuardado))
+                    {
+                        return temaGuardado;
+                    }
+                }
+            }
+            catch
+            {
+                // Si falla la lectura (permisos, archivo corrupto...) simplemente
+                // seguimos con el tema Predeterminado sin romper el arranque de la app.
+            }
+
+            return TemaApp.Predeterminado;
+        }
+
+        private static void GuardarTema(TemaApp tema)
+        {
+            try
+            {
+                File.WriteAllText(RutaConfigTema, tema.ToString());
+            }
+            catch
+            {
+                // Igual que arriba: si no se puede guardar, la app sigue funcionando,
+                // simplemente no recordará el tema la próxima vez que se abra.
+            }
+        }
+
+        // ---------- APLICAR EL TEMA A UN FORMULARIO ----------
+
+        /// <summary>
+        /// Aplica el tema activo al formulario y a todos sus controles hijos
         /// </summary>
         public static void AplicarTema(Form formulario)
         {
@@ -31,9 +151,50 @@ namespace Proyecto_Final_Yoel
             }
         }
 
+        /// <summary>
+        /// Reaplica el tema a TODOS los formularios abiertos ahora mismo, incluidos
+        /// los que están embebidos dentro de un panel (Clientes, Stock, Transacciones,
+        /// Configuración, Categorías...), para que el cambio se vea al instante sin
+        /// tener que cerrar y volver a abrir cada pantalla.
+        /// </summary>
+        public static void AplicarTemaGlobal()
+        {
+            foreach (Form formularioAbierto in Application.OpenForms)
+            {
+                AplicarTema(formularioAbierto);
+
+                var embebidos = new List<Form>();
+                BuscarFormulariosEmbebidos(formularioAbierto, embebidos);
+
+                foreach (Form embebido in embebidos)
+                {
+                    AplicarTema(embebido);
+                }
+            }
+        }
+
+        // Recorre el árbol de controles buscando formularios embebidos (los que se
+        // añaden con TopLevel = false dentro de un panel, como hacemos en
+        // Pagina_Principal y en Configuración)
+        private static void BuscarFormulariosEmbebidos(Control contenedor, List<Form> encontrados)
+        {
+            foreach (Control hijo in contenedor.Controls)
+            {
+                if (hijo is Form formHijo)
+                {
+                    encontrados.Add(formHijo);
+                }
+
+                if (hijo.HasChildren)
+                {
+                    BuscarFormulariosEmbebidos(hijo, encontrados);
+                }
+            }
+        }
+
         private static void EstilizarControl(Control control)
         {
-            // Paneles y GroupBox actúan como las "tarjetas" blancas sobre fondo gris claro
+            // Paneles y GroupBox actúan como las "tarjetas" sobre el fondo general
             if (control is Panel || control is GroupBox)
             {
                 control.BackColor = FondoTarjeta;
@@ -44,7 +205,7 @@ namespace Proyecto_Final_Yoel
                     control.Paint += (s, e) => DibujarEsquinasRedondeadas(control, e.Graphics, 12, FondoTarjeta);
                 }
             }
-            // Botones: relleno teal sólido con texto blanco (como el botón "Guardar" de la referencia)
+            // Botones: relleno sólido con el color primario del tema
             else if (control is Button btn)
             {
                 btn.FlatStyle = FlatStyle.Flat;
@@ -60,27 +221,33 @@ namespace Proyecto_Final_Yoel
             {
                 lbl.ForeColor = lbl.Name.Contains("Titulo") ? Primario : TextoPrincipal;
             }
-            // Cajas de texto claras con borde suave, integradas en el fondo blanco
             else if (control is TextBox txt)
             {
-                txt.BackColor = Color.White;
+                txt.BackColor = FondoCampo;
                 txt.BorderStyle = BorderStyle.FixedSingle;
                 txt.ForeColor = TextoPrincipal;
             }
+            else if (control is ComboBox combo)
+            {
+                combo.BackColor = FondoCampo;
+                combo.ForeColor = TextoPrincipal;
+                combo.FlatStyle = FlatStyle.Flat;
+            }
             else if (control is DataGridView grid)
             {
-                grid.BackgroundColor = Color.White;
+                grid.BackgroundColor = FondoTarjeta;
                 grid.BorderStyle = BorderStyle.None;
                 grid.GridColor = BordeSuave;
                 grid.EnableHeadersVisualStyles = false;
                 grid.ColumnHeadersDefaultCellStyle.BackColor = Primario;
                 grid.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
                 grid.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-                grid.DefaultCellStyle.BackColor = Color.White;
+                grid.DefaultCellStyle.BackColor = FondoCampo;
                 grid.DefaultCellStyle.ForeColor = TextoPrincipal;
                 grid.DefaultCellStyle.SelectionBackColor = Primario;
                 grid.DefaultCellStyle.SelectionForeColor = Color.White;
-                grid.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(240, 248, 247); // tinte teal muy suave
+                grid.AlternatingRowsDefaultCellStyle.BackColor = FilaAlterna;
+                grid.AlternatingRowsDefaultCellStyle.ForeColor = TextoPrincipal;
                 grid.RowHeadersVisible = false;
             }
 
