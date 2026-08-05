@@ -150,6 +150,22 @@ namespace Proyecto_Final_Yoel
         private void pictureBox2_Click(object sender, EventArgs e)
         {
 
+            // Si la contraseña está oculta, la mostramos
+            if (txtContrasena.UseSystemPasswordChar == true)
+            {
+                txtContrasena.UseSystemPasswordChar = false;
+
+                // OPCIONAL: Si tienes otra imagen del ojo abierto en tus Recursos, cámbiala aquí:
+                // picOjo.Image = Properties.Resources.ojo_abierto; 
+            }
+            // Si ya se estaba mostrando, la volvemos a ocultar
+            else
+            {
+                txtContrasena.UseSystemPasswordChar = true;
+
+                // picOjo.Image = Properties.Resources.ojo_tachado;
+            }
+        
         }
 
         private void buttonIniciarLogin_Click(object sender, EventArgs e)
@@ -195,6 +211,11 @@ namespace Proyecto_Final_Yoel
                 // Por si falla la comunicación con SQL Server
                 MessageBox.Show("Error al conectar con la base de datos: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void buttonCancelarLogin_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

@@ -8,8 +8,8 @@ namespace Proyecto_Final_Yoel
     public static class EstiloModerno
     {
         // Paleta turquesa/teal extraída de la referencia
-        public static Color FondoBase = Color.FromArgb(245, 247, 248);      // gris casi blanco (fondo general)
-        public static Color FondoTarjeta = Color.White;                    // tarjetas/paneles
+        public static Color FondoBase = Color.FromArgb(245, 247, 248);   // gris casi blanco (fondo general)
+        public static Color FondoTarjeta = Color.FromArgb(240, 244, 248);  // tarjetas/paneles
         public static Color TextoPrincipal = Color.FromArgb(34, 40, 49);   // gris oscuro (texto principal)
         public static Color TextoSecundario = Color.FromArgb(107, 114, 128); // gris medio (texto secundario)
         public static Color Primario = Color.FromArgb(23, 163, 152);       // teal principal (cabeceras, botones)

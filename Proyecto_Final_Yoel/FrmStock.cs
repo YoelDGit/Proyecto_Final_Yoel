@@ -301,5 +301,10 @@ namespace Proyecto_Final_Yoel
         {
             CargarStock(textBox6.Text.Trim());
         }
+
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

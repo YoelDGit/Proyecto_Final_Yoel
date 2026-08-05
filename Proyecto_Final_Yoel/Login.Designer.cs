@@ -112,6 +112,7 @@ namespace Proyecto_Final_Yoel
             this.buttonCancelarLogin.TabIndex = 6;
             this.buttonCancelarLogin.Text = "Cancelar";
             this.buttonCancelarLogin.UseVisualStyleBackColor = true;
+            this.buttonCancelarLogin.Click += new System.EventHandler(this.buttonCancelarLogin_Click);
             // 
             // label3
             // 
@@ -175,6 +176,7 @@ namespace Proyecto_Final_Yoel
             // 
             // Login
             // 
+            this.AcceptButton = this.buttonIniciarLogin;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(444, 201);
