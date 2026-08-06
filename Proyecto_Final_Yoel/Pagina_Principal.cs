@@ -50,6 +50,7 @@ namespace Proyecto_Final_Yoel
         {
             // ¡La magia ocurre aquí! Pasa este formulario como parámetro
             EstiloModerno.AplicarTema(this);
+            Idiomas.AplicarIdioma(this);
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -70,6 +71,11 @@ namespace Proyecto_Final_Yoel
         private void button5_Click(object sender, EventArgs e)
         {
             AbrirFormularioEnPanel(new Configuración());
+        }
+
+        private void button4_Click(object sender, EventArgs e) // "USUARIOS"
+        {
+            AbrirFormularioEnPanel(new FrmUsuarios());
         }
 
         private void label1_Click(object sender, EventArgs e)

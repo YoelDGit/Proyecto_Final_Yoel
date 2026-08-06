@@ -26,6 +26,21 @@ namespace Proyecto_Final_Yoel
         {
             // ¡La magia ocurre aquí! Pasa este formulario como parámetro
             EstiloModerno.AplicarTema(this);
+            Idiomas.AplicarIdioma(this);
+
+            comboIdioma.SelectedIndex = (int)Idiomas.IdiomaActual;
+        }
+
+        private void comboIdioma_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboIdioma.SelectedIndex < 0) return;
+
+            IdiomaApp seleccionado = (IdiomaApp)comboIdioma.SelectedIndex;
+
+            if (seleccionado != Idiomas.IdiomaActual)
+            {
+                Idiomas.CambiarIdioma(seleccionado);
+            }
         }
 
         private void InicializarTimer()
@@ -122,6 +137,8 @@ namespace Proyecto_Final_Yoel
                     // Asignamos las propiedades
                     nuevoUsuario.Usuario = txtUsuario.Text.Trim();
                     nuevoUsuario.Contrasena = txtContrasena.Text.Trim();
+                    nuevoUsuario.Fecha = DateTime.Now.Date;
+                    nuevoUsuario.Hora = DateTime.Now.TimeOfDay;
 
                     // 3. Añadimos el objeto a la colección en plural
                     db.Inicio_Sesion.InsertOnSubmit(nuevoUsuario);
@@ -184,13 +201,18 @@ namespace Proyecto_Final_Yoel
                     string usuarioIntroducido = txtUsuario.Text.Trim();
                     string contrasenaIntroducida = txtContrasena.Text.Trim();
 
-                    // 2. Buscamos mediante LINQ si existe el registro en la base de datos
-                    // (Mantenemos tu propiedad exacta 'Contrasenia')
-                    bool usuarioValido = db.Inicio_Sesion.Any(u => u.Usuario == usuarioIntroducido
-                                                                && u.Contrasena == contrasenaIntroducida);
+                    // 2. Buscamos el registro completo (no solo si existe) para
+                    // poder actualizar su Fecha/Hora de último acceso
+                    var usuarioEncontrado = db.Inicio_Sesion.FirstOrDefault(u =>
+                        u.Usuario == usuarioIntroducido && u.Contrasena == contrasenaIntroducida);
 
-                    if (usuarioValido)
+                    if (usuarioEncontrado != null)
                     {
+                        // Registramos el momento exacto de este inicio de sesión
+                        usuarioEncontrado.Fecha = DateTime.Now.Date;
+                        usuarioEncontrado.Hora = DateTime.Now.TimeOfDay;
+                        db.SubmitChanges();
+
                         MessageBox.Show("¡Bienvenido al sistema!", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                         // 3. Indicamos al Program.cs que la validación fue un éxito

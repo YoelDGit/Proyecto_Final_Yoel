@@ -96,12 +96,25 @@
     <Compile Include="FrmCategorias.Designer.cs">
       <DependentUpon>FrmCategorias.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmIdioma.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmIdioma.Designer.cs">
+      <DependentUpon>FrmIdioma.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmTema.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FrmTema.Designer.cs">
       <DependentUpon>FrmTema.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmUsuarios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmUsuarios.Designer.cs">
+      <DependentUpon>FrmUsuarios.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Idiomas.cs" />
     <Compile Include="Pagina_Principal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -145,11 +158,17 @@
     <EmbeddedResource Include="FrmCategorias.resx">
       <DependentUpon>FrmCategorias.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FrmIdioma.resx">
+      <DependentUpon>FrmIdioma.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmStock.resx">
       <DependentUpon>FrmStock.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmTema.resx">
       <DependentUpon>FrmTema.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmUsuarios.resx">
+      <DependentUpon>FrmUsuarios.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pagina_Principal.resx">
       <DependentUpon>Pagina_Principal.cs</DependentUpon>

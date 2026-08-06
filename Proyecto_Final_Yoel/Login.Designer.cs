@@ -43,6 +43,8 @@ namespace Proyecto_Final_Yoel
             this.LabelFecha = new System.Windows.Forms.Label();
             this.buttonCrearLogin = new System.Windows.Forms.Button();
             this.MouseEventArg = new System.Windows.Forms.PictureBox();
+            this.labelIdioma = new System.Windows.Forms.Label();
+            this.comboIdioma = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MouseEventArg)).BeginInit();
             this.SuspendLayout();
@@ -171,6 +173,31 @@ namespace Proyecto_Final_Yoel
             this.MouseEventArg.Size = new System.Drawing.Size(26, 20);
             this.MouseEventArg.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.MouseEventArg.TabIndex = 12;
+            //
+            // labelIdioma
+            //
+            this.labelIdioma.AutoSize = true;
+            this.labelIdioma.Location = new System.Drawing.Point(21, 205);
+            this.labelIdioma.Name = "labelIdioma";
+            this.labelIdioma.Size = new System.Drawing.Size(46, 13);
+            this.labelIdioma.TabIndex = 13;
+            this.labelIdioma.Text = "Idioma:";
+            //
+            // comboIdioma
+            //
+            this.comboIdioma.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboIdioma.FormattingEnabled = true;
+            this.comboIdioma.Items.AddRange(new object[] {
+            "Español",
+            "English",
+            "Français",
+            "Deutsch",
+            "Português"});
+            this.comboIdioma.Location = new System.Drawing.Point(88, 202);
+            this.comboIdioma.Name = "comboIdioma";
+            this.comboIdioma.Size = new System.Drawing.Size(142, 21);
+            this.comboIdioma.TabIndex = 14;
+            this.comboIdioma.SelectedIndexChanged += new System.EventHandler(this.comboIdioma_SelectedIndexChanged);
             this.MouseEventArg.TabStop = false;
             this.MouseEventArg.Click += new System.EventHandler(this.pictureBox2_Click);
             // 
@@ -179,7 +206,9 @@ namespace Proyecto_Final_Yoel
             this.AcceptButton = this.buttonIniciarLogin;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(444, 201);
+            this.ClientSize = new System.Drawing.Size(444, 235);
+            this.Controls.Add(this.comboIdioma);
+            this.Controls.Add(this.labelIdioma);
             this.Controls.Add(this.MouseEventArg);
             this.Controls.Add(this.buttonCrearLogin);
             this.Controls.Add(this.LabelFecha);
@@ -218,6 +247,8 @@ namespace Proyecto_Final_Yoel
         private System.Windows.Forms.Label LabelFecha;
         private System.Windows.Forms.Button buttonCrearLogin;
         private System.Windows.Forms.PictureBox MouseEventArg;
+        private System.Windows.Forms.Label labelIdioma;
+        private System.Windows.Forms.ComboBox comboIdioma;
     }
 }
 

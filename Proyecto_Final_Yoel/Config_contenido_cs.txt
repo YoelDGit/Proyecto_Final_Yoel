@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +15,13 @@ namespace Proyecto_Final_Yoel
         public Configuración()
         {
             InitializeComponent();
+            this.AutoScaleMode = AutoScaleMode.Inherit;
+        }
+
+        private void Configuración_Load(object sender, EventArgs e)
+        {
+            EstiloModerno.AplicarTema(this);
+            Idiomas.AplicarIdioma(this);
         }
 
         private void AbrirFormularioEnPanel(Form formHijo)
@@ -38,17 +45,12 @@ namespace Proyecto_Final_Yoel
             AbrirFormularioEnPanel(new FrmCategorias());
         }
 
-        private void Configuración_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button2_Click(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e) // "Diseño"
         {
             AbrirFormularioEnPanel(new FrmTema());
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void button3_Click(object sender, EventArgs e) // "Lenguaje"
         {
             AbrirFormularioEnPanel(new FrmIdioma());
         }
