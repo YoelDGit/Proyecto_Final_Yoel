@@ -34,8 +34,8 @@ namespace Proyecto_Final_Yoel
         {
             EstiloModerno.AplicarTema(this);
 
-            textBox2.ReadOnly = true; // Nombre del cliente: solo lectura, viene de la búsqueda
-            textBox3.ReadOnly = true; // Apellido del cliente: solo lectura
+            // Nombre y Apellido ya no son de solo lectura: ahora también sirven
+            // como criterio de búsqueda (además del Cliente ID)
 
             textBox7.ReadOnly = true; // Nombre del cliente (Devueltos)
             textBox5.ReadOnly = true; // Apellido del cliente (Devueltos)
@@ -60,6 +60,7 @@ namespace Proyecto_Final_Yoel
             dataGridView2.MultiSelect = false;
             dataGridView2.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridView2.DataSource = carrito;
+            FormatearColumnasDinero(dataGridView2);
 
             // --- Devueltos ---
             dataGridView4.AutoGenerateColumns = true;
@@ -74,6 +75,7 @@ namespace Proyecto_Final_Yoel
             dataGridView3.MultiSelect = false;
             dataGridView3.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridView3.DataSource = carritoDevolucion;
+            FormatearColumnasDinero(dataGridView3);
         }
 
         // Lista de productos disponibles (columna izquierda / superior), con búsqueda opcional
@@ -97,6 +99,8 @@ namespace Proyecto_Final_Yoel
                     CantidadDisponible = i.Cantidad
                 })
                 .ToList();
+
+            FormatearColumnasDinero(dataGridView1);
         }
 
         // ---------- BUSCAR CLIENTE ----------
@@ -104,31 +108,69 @@ namespace Proyecto_Final_Yoel
         private void button1_Click(object sender, EventArgs e) // Buscar (cliente)
         {
             string idInput = textBox1.Text.Trim();
+            string nombreInput = textBox2.Text.Trim();
+            string apellidoInput = textBox3.Text.Trim();
 
-            if (string.IsNullOrWhiteSpace(idInput))
+            if (string.IsNullOrWhiteSpace(idInput) && string.IsNullOrWhiteSpace(nombreInput) && string.IsNullOrWhiteSpace(apellidoInput))
             {
-                MessageBox.Show("Escribe un Cliente ID para buscar.", "Aviso",
+                MessageBox.Show("Escribe un Cliente ID, un nombre o un apellido para buscar.", "Aviso",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            // Permite buscar tanto "115" como "0000115": si es numérico, lo
-            // rellenamos con ceros para que coincida con el formato CHAR(7).
-            string idBuscado = idInput;
-            if (int.TryParse(idInput, out int idNumero))
+            Clientes cliente = null;
+
+            // 1. Si hay Cliente ID, tiene prioridad: buscamos coincidencia exacta
+            // (acepta "115" o "0000115")
+            if (!string.IsNullOrWhiteSpace(idInput))
             {
-                idBuscado = idNumero.ToString().PadLeft(7, '0');
+                string idBuscado = idInput;
+                if (int.TryParse(idInput, out int idNumero))
+                {
+                    idBuscado = idNumero.ToString().PadLeft(7, '0');
+                }
+
+                cliente = db.Clientes.FirstOrDefault(c => c.IdCliente == idBuscado);
             }
 
-            var cliente = db.Clientes.FirstOrDefault(c => c.IdCliente == idBuscado);
+            // 2. Si no hay ID o no encontró nada, buscamos por Nombre y/o Apellido
+            if (cliente == null && (!string.IsNullOrWhiteSpace(nombreInput) || !string.IsNullOrWhiteSpace(apellidoInput)))
+            {
+                var query = db.Clientes.AsQueryable();
+
+                if (!string.IsNullOrWhiteSpace(nombreInput))
+                {
+                    query = query.Where(c => c.Nombre.Contains(nombreInput));
+                }
+
+                if (!string.IsNullOrWhiteSpace(apellidoInput))
+                {
+                    query = query.Where(c => c.Apellidos.Contains(apellidoInput));
+                }
+
+                var coincidencias = query.OrderBy(c => c.Nombre).ThenBy(c => c.Apellidos).ToList();
+
+                if (coincidencias.Count > 0)
+                {
+                    cliente = coincidencias.First();
+
+                    if (coincidencias.Count > 1)
+                    {
+                        MessageBox.Show(
+                            $"Se encontraron {coincidencias.Count} clientes que coinciden. Se ha seleccionado: " +
+                            $"{cliente.Nombre} {cliente.Apellidos} (ID {cliente.IdCliente}).\n\n" +
+                            "Si no es el correcto, busca por su Cliente ID exacto o afina el nombre/apellido.",
+                            "Varias coincidencias", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
 
             if (cliente == null)
             {
-                MessageBox.Show("No se encontró ningún cliente con ese ID.", "Cliente no encontrado",
+                MessageBox.Show("No se encontró ningún cliente con esos datos.", "Cliente no encontrado",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 clienteSeleccionadoId = null;
-                textBox2.Clear();
-                textBox3.Clear();
+                AsegurarCarritoEnGrid2();
                 return;
             }
 
@@ -136,6 +178,61 @@ namespace Proyecto_Final_Yoel
             textBox1.Text = cliente.IdCliente;
             textBox2.Text = cliente.Nombre;
             textBox3.Text = cliente.Apellidos;
+
+            MostrarHistorialCliente(clienteSeleccionadoId);
+        }
+
+        // Muestra en dataGridView2 el detalle de productos que el cliente ya ha
+        // comprado/devuelto (una fila por producto, no por transacción), mientras
+        // no se haya empezado a añadir productos a una venta nueva. En cuanto se
+        // añade el primer producto (button6_Click), este grid pasa a mostrar el
+        // carrito de la venta en curso.
+        private void MostrarHistorialCliente(string idCliente)
+        {
+            var historial = db.DetalleTransaccion
+                .Where(d => d.Transacciones.IdCliente == idCliente)
+                .OrderByDescending(d => d.Transacciones.Fecha)
+                .Select(d => new
+                {
+                    Fecha = d.Transacciones.Fecha,
+                    Tipo = d.Transacciones.Tipo,
+                    Nombre = d.Stock.Nombre,
+                    Descripcion = d.Stock.Descripcion,
+                    Precio = d.PrecioUnitario,
+                    Cantidad = d.Cantidad,
+                    Total = d.PrecioUnitario * d.Cantidad
+                })
+                .ToList();
+
+            dataGridView2.DataSource = historial;
+            FormatearColumnasDinero(dataGridView2);
+        }
+
+        // Redondea a 2 decimales la VISUALIZACIÓN de las columnas de dinero
+        // (Precio, PrecioUnitario, Total, Subtotal), sin tocar el valor real
+        // guardado en la base de datos.
+        private void FormatearColumnasDinero(DataGridView grid)
+        {
+            string[] columnasDinero = { "Precio", "PrecioUnitario", "Total", "Subtotal" };
+
+            foreach (DataGridViewColumn columna in grid.Columns)
+            {
+                if (columnasDinero.Contains(columna.Name))
+                {
+                    columna.DefaultCellStyle.Format = "N2";
+                }
+            }
+        }
+
+        // Vuelve a enganchar dataGridView2 al carrito de la venta en curso
+        // (se llama justo antes de añadir el primer producto)
+        private void AsegurarCarritoEnGrid2()
+        {
+            if (!ReferenceEquals(dataGridView2.DataSource, carrito))
+            {
+                dataGridView2.DataSource = carrito;
+                FormatearColumnasDinero(dataGridView2);
+            }
         }
 
         // ---------- BUSCAR PRODUCTO ----------
@@ -155,6 +252,8 @@ namespace Proyecto_Final_Yoel
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+
+            AsegurarCarritoEnGrid2(); // A partir de aquí, dataGridView2 muestra el carrito, no el historial
 
             string idItem = dataGridView1.CurrentRow.Cells["IdStock"].Value.ToString();
             string nombre = dataGridView1.CurrentRow.Cells["Nombre"].Value.ToString();
@@ -298,6 +397,7 @@ namespace Proyecto_Final_Yoel
             textBox2.Clear();
             textBox3.Clear();
             carrito.Clear();
+            AsegurarCarritoEnGrid2();
             CargarProductosDisponibles();
         }
 
@@ -393,6 +493,7 @@ namespace Proyecto_Final_Yoel
             }
 
             dataGridView4.DataSource = disponibles.OrderBy(d => d.IdStock).ToList();
+            FormatearColumnasDinero(dataGridView4);
         }
 
         private void textBox4_TextChanged(object sender, EventArgs e)
