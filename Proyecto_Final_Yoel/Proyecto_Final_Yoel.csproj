@@ -90,6 +90,16 @@
       <DependentUpon>Configuración.cs</DependentUpon>
     </Compile>
     <Compile Include="EstiloModerno.cs" />
+    <Compile Include="FrmAyuda.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmAyuda.Designer.cs" />
+    <Compile Include="FrmCambiarUsuario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmCambiarUsuario.Designer.cs">
+      <DependentUpon>FrmCambiarUsuario.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmCategorias.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -146,6 +156,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Proyecto_Final_YoelDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="SesionActual.cs" />
     <EmbeddedResource Include="Cliente.resx">
       <DependentUpon>Cliente.cs</DependentUpon>
     </EmbeddedResource>
@@ -154,6 +165,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormTransacciones.resx">
       <DependentUpon>FormTransacciones.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmAyuda.resx" />
+    <EmbeddedResource Include="FrmCambiarUsuario.resx">
+      <DependentUpon>FrmCambiarUsuario.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmCategorias.resx">
       <DependentUpon>FrmCategorias.cs</DependentUpon>

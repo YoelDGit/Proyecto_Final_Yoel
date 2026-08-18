@@ -139,6 +139,7 @@ namespace Proyecto_Final_Yoel
                     nuevoUsuario.Contrasena = txtContrasena.Text.Trim();
                     nuevoUsuario.Fecha = DateTime.Now.Date;
                     nuevoUsuario.Hora = DateTime.Now.TimeOfDay;
+                    nuevoUsuario.EsAdministrador = false; // Los usuarios que se crean aquí son siempre secundarios
 
                     // 3. Añadimos el objeto a la colección en plural
                     db.Inicio_Sesion.InsertOnSubmit(nuevoUsuario);
@@ -212,6 +213,11 @@ namespace Proyecto_Final_Yoel
                         usuarioEncontrado.Fecha = DateTime.Now.Date;
                         usuarioEncontrado.Hora = DateTime.Now.TimeOfDay;
                         db.SubmitChanges();
+
+                        // Guardamos quién ha entrado y si es administrador, para
+                        // que el resto de la app (Pagina_Principal, FormTransacciones...)
+                        // sepa qué puede hacer y qué no
+                        SesionActual.IniciarSesion(usuarioEncontrado.Usuario, usuarioEncontrado.EsAdministrador);
 
                         MessageBox.Show("¡Bienvenido al sistema!", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
 

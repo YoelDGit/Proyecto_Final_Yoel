@@ -37,11 +37,41 @@ namespace Proyecto_Final_Yoel
             // Nombre y Apellido ya no son de solo lectura: ahora también sirven
             // como criterio de búsqueda (además del Cliente ID)
 
-            textBox7.ReadOnly = true; // Nombre del cliente (Devueltos)
-            textBox5.ReadOnly = true; // Apellido del cliente (Devueltos)
+            // Nombre y Apellido tampoco son de solo lectura aquí: también sirven
+            // como criterio de búsqueda (además del Cliente ID)
 
             ConfigurarGrids();
             CargarProductosDisponibles();
+            AplicarPermisos();
+        }
+
+        // Oculta/muestra la pestaña "Devueltos" según si el usuario activo es
+        // administrador. Se llama al abrir el formulario y también desde
+        // SesionActual.RefrescarPermisosGlobal() cuando alguien cambia de usuario
+        // sin cerrar esta pantalla.
+        public void AplicarPermisos()
+        {
+            if (SesionActual.EsAdministrador)
+            {
+                if (!tabControl1.TabPages.Contains(tabPage1))
+                {
+                    tabControl1.TabPages.Insert(1, tabPage1);
+                }
+            }
+            else
+            {
+                if (tabControl1.TabPages.Contains(tabPage1))
+                {
+                    // Si el usuario secundario estaba precisamente en esa pestaña,
+                    // lo devolvemos a "Salidas" antes de quitarla
+                    if (tabControl1.SelectedTab == tabPage1)
+                    {
+                        tabControl1.SelectedTab = tabPage2;
+                    }
+
+                    tabControl1.TabPages.Remove(tabPage1);
+                }
+            }
         }
 
         // ---------- CONFIGURACIÓN DE GRIDS ----------
@@ -413,29 +443,68 @@ namespace Proyecto_Final_Yoel
         private void button12_Click(object sender, EventArgs e) // Buscar (cliente, Devueltos)
         {
             string idInput = textBox8.Text.Trim();
+            string nombreInput = textBox7.Text.Trim();
+            string apellidoInput = textBox5.Text.Trim();
 
-            if (string.IsNullOrWhiteSpace(idInput))
+            if (string.IsNullOrWhiteSpace(idInput) && string.IsNullOrWhiteSpace(nombreInput) && string.IsNullOrWhiteSpace(apellidoInput))
             {
-                MessageBox.Show("Escribe un Cliente ID para buscar.", "Aviso",
+                MessageBox.Show("Escribe un Cliente ID, un nombre o un apellido para buscar.", "Aviso",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            string idBuscado = idInput;
-            if (int.TryParse(idInput, out int idNumero))
+            Clientes cliente = null;
+
+            // 1. Si hay Cliente ID, tiene prioridad: buscamos coincidencia exacta
+            // (acepta "115" o "0000115")
+            if (!string.IsNullOrWhiteSpace(idInput))
             {
-                idBuscado = idNumero.ToString().PadLeft(7, '0');
+                string idBuscado = idInput;
+                if (int.TryParse(idInput, out int idNumero))
+                {
+                    idBuscado = idNumero.ToString().PadLeft(7, '0');
+                }
+
+                cliente = db.Clientes.FirstOrDefault(c => c.IdCliente == idBuscado);
             }
 
-            var cliente = db.Clientes.FirstOrDefault(c => c.IdCliente == idBuscado);
+            // 2. Si no hay ID o no encontró nada, buscamos por Nombre y/o Apellido
+            if (cliente == null && (!string.IsNullOrWhiteSpace(nombreInput) || !string.IsNullOrWhiteSpace(apellidoInput)))
+            {
+                var query = db.Clientes.AsQueryable();
+
+                if (!string.IsNullOrWhiteSpace(nombreInput))
+                {
+                    query = query.Where(c => c.Nombre.Contains(nombreInput));
+                }
+
+                if (!string.IsNullOrWhiteSpace(apellidoInput))
+                {
+                    query = query.Where(c => c.Apellidos.Contains(apellidoInput));
+                }
+
+                var coincidencias = query.OrderBy(c => c.Nombre).ThenBy(c => c.Apellidos).ToList();
+
+                if (coincidencias.Count > 0)
+                {
+                    cliente = coincidencias.First();
+
+                    if (coincidencias.Count > 1)
+                    {
+                        MessageBox.Show(
+                            $"Se encontraron {coincidencias.Count} clientes que coinciden. Se ha seleccionado: " +
+                            $"{cliente.Nombre} {cliente.Apellidos} (ID {cliente.IdCliente}).\n\n" +
+                            "Si no es el correcto, busca por su Cliente ID exacto o afina el nombre/apellido.",
+                            "Varias coincidencias", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
 
             if (cliente == null)
             {
-                MessageBox.Show("No se encontró ningún cliente con ese ID.", "Cliente no encontrado",
+                MessageBox.Show("No se encontró ningún cliente con esos datos.", "Cliente no encontrado",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 clienteDevolucionId = null;
-                textBox7.Clear();
-                textBox5.Clear();
                 dataGridView4.DataSource = null;
                 return;
             }
@@ -520,7 +589,14 @@ namespace Proyecto_Final_Yoel
             var enCarrito = carritoDevolucion.FirstOrDefault(c => c.IdItem == idItem);
             int yaEnCarrito = enCarrito?.Cantidad ?? 0;
 
-            if (yaEnCarrito + 1 > disponibleParaDevolver)
+            int cantidadIntroducida;
+            if (!int.TryParse(textBox10.Text, out cantidadIntroducida) || cantidadIntroducida <= 0)
+            {
+                // Si no se introduce una cantidad válida, por defecto 1
+                cantidadIntroducida = 1;
+            }
+
+            if (yaEnCarrito + cantidadIntroducida > disponibleParaDevolver)
             {
                 MessageBox.Show($"No puedes devolver más de lo comprado. Disponible para devolver: {disponibleParaDevolver}.",
                     "Cantidad excedida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -529,7 +605,7 @@ namespace Proyecto_Final_Yoel
 
             if (enCarrito != null)
             {
-                enCarrito.Cantidad += 1;
+                enCarrito.Cantidad += cantidadIntroducida;
                 dataGridView3.Refresh();
             }
             else
@@ -538,7 +614,7 @@ namespace Proyecto_Final_Yoel
                 {
                     IdItem = idItem,
                     Nombre = nombre,
-                    Cantidad = 1,
+                    Cantidad = cantidadIntroducida,
                     PrecioUnitario = precio
                 });
             }
@@ -644,6 +720,7 @@ namespace Proyecto_Final_Yoel
             textBox8.Clear();
             textBox7.Clear();
             textBox5.Clear();
+            textBox10.Clear();
             carritoDevolucion.Clear();
             dataGridView4.DataSource = null;
         }

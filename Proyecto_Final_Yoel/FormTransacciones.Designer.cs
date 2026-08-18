@@ -80,6 +80,7 @@ namespace Proyecto_Final_Yoel
             this.button9 = new System.Windows.Forms.Button();
             this.button10 = new System.Windows.Forms.Button();
             this.button11 = new System.Windows.Forms.Button();
+            this.textBox10 = new System.Windows.Forms.TextBox();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -566,6 +567,7 @@ namespace Proyecto_Final_Yoel
             this.panel6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.panel6.AutoSize = true;
             this.panel6.Controls.Add(this.panel7);
+            this.panel6.Controls.Add(this.textBox10);
             this.panel6.Controls.Add(this.button11);
             this.panel6.Controls.Add(this.dataGridView3);
             this.panel6.Location = new System.Drawing.Point(0, 231);
@@ -640,6 +642,13 @@ namespace Proyecto_Final_Yoel
             this.button11.Text = "Agregar";
             this.button11.UseVisualStyleBackColor = true;
             this.button11.Click += new System.EventHandler(this.button11_Click);
+            //
+            // textBox10
+            //
+            this.textBox10.Location = new System.Drawing.Point(102, 3);
+            this.textBox10.Name = "textBox10";
+            this.textBox10.Size = new System.Drawing.Size(100, 20);
+            this.textBox10.TabIndex = 23;
             // 
             // dataGridView3
             // 
@@ -732,6 +741,7 @@ namespace Proyecto_Final_Yoel
         private System.Windows.Forms.Button button9;
         private System.Windows.Forms.Button button10;
         private System.Windows.Forms.Button button11;
+        private System.Windows.Forms.TextBox textBox10;
         private System.Windows.Forms.DataGridView dataGridView3;
         private System.Windows.Forms.Panel panel9;
         private System.Windows.Forms.TextBox textBox5;

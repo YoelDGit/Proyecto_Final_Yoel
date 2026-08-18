@@ -58,7 +58,7 @@ namespace Proyecto_Final_Yoel
             Panel tarjeta = new Panel
             {
                 Width = Math.Max(280, flowPanel.ClientSize.Width - 25),
-                Height = 72,
+                Height = 90,
                 Margin = new Padding(8, 6, 8, 6),
                 BackColor = EstiloModerno.FondoTarjeta
             };
@@ -81,7 +81,7 @@ namespace Proyecto_Final_Yoel
             {
                 Text = string.IsNullOrEmpty(usuario.Usuario) ? "?" : usuario.Usuario.Substring(0, 1).ToUpper(),
                 Size = new Size(48, 48),
-                Location = new Point(12, 12),
+                Location = new Point(12, 21),
                 TextAlign = ContentAlignment.MiddleCenter,
                 Font = new Font("Segoe UI", 14F, FontStyle.Bold),
                 ForeColor = Color.White,
@@ -100,10 +100,19 @@ namespace Proyecto_Final_Yoel
             Label nombreUsuario = new Label
             {
                 Text = usuario.Usuario,
-                Location = new Point(72, 14),
+                Location = new Point(72, 10),
                 AutoSize = true,
                 Font = new Font("Segoe UI", 11F, FontStyle.Bold),
                 ForeColor = EstiloModerno.TextoPrincipal
+            };
+
+            Label rolLabel = new Label
+            {
+                Text = usuario.EsAdministrador ? "Administrador" : "Usuario secundario",
+                Location = new Point(72, 32),
+                AutoSize = true,
+                Font = new Font("Segoe UI", 8.5F, FontStyle.Bold),
+                ForeColor = usuario.EsAdministrador ? EstiloModerno.Primario : EstiloModerno.TextoSecundario
             };
 
             // Fecha (solo día) + Hora (solo hora) se guardan por separado en la
@@ -113,7 +122,7 @@ namespace Proyecto_Final_Yoel
             Label ultimoLabel = new Label
             {
                 Text = "Último acceso: " + ultimoAcceso.ToString("dd/MM/yyyy - HH:mm:ss"),
-                Location = new Point(72, 38),
+                Location = new Point(72, 54),
                 AutoSize = true,
                 Font = new Font("Segoe UI", 9F),
                 ForeColor = EstiloModerno.TextoSecundario
@@ -121,6 +130,7 @@ namespace Proyecto_Final_Yoel
 
             tarjeta.Controls.Add(avatar);
             tarjeta.Controls.Add(nombreUsuario);
+            tarjeta.Controls.Add(rolLabel);
             tarjeta.Controls.Add(ultimoLabel);
 
             return tarjeta;

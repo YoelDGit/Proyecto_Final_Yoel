@@ -888,6 +888,8 @@ namespace Proyecto_Final_Yoel
 		
 		private System.TimeSpan _Hora;
 		
+		private bool _EsAdministrador;
+		
     #region Definiciones de métodos de extensibilidad
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -902,6 +904,8 @@ namespace Proyecto_Final_Yoel
     partial void OnFechaChanged();
     partial void OnHoraChanging(System.TimeSpan value);
     partial void OnHoraChanged();
+    partial void OnEsAdministradorChanging(bool value);
+    partial void OnEsAdministradorChanged();
     #endregion
 		
 		public Inicio_Sesion()
@@ -1005,6 +1009,26 @@ namespace Proyecto_Final_Yoel
 					this._Hora = value;
 					this.SendPropertyChanged("Hora");
 					this.OnHoraChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EsAdministrador", DbType="Bit NOT NULL")]
+		public bool EsAdministrador
+		{
+			get
+			{
+				return this._EsAdministrador;
+			}
+			set
+			{
+				if ((this._EsAdministrador != value))
+				{
+					this.OnEsAdministradorChanging(value);
+					this.SendPropertyChanging();
+					this._EsAdministrador = value;
+					this.SendPropertyChanged("EsAdministrador");
+					this.OnEsAdministradorChanged();
 				}
 			}
 		}

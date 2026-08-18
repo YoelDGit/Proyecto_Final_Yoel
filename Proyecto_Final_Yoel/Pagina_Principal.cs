@@ -82,5 +82,10 @@ namespace Proyecto_Final_Yoel
         {
 
         }
+
+        private void button6_Click(object sender, EventArgs e) // "LOGIN"
+        {
+            AbrirFormularioEnPanel(new FrmCambiarUsuario());
+        }
     }
 }
