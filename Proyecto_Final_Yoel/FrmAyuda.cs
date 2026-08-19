@@ -152,8 +152,29 @@ namespace Proyecto_Final_Yoel
                 "acceder a Devueltos ni ver o usar las cuentas de administrador."
             );
 
+            AppendSubtitulo("11. Exportar a Excel");
+            AppendTexto(
+                "Desde CONF → Exportación puedes sacar tus datos a un archivo Excel " +
+                "(.xlsx) para consultarlos o compartirlos fuera de la aplicación. Hay " +
+                "tres botones, uno por cada tipo de dato:\n" +
+                "• Exportar Clientes: todos los clientes con sus datos de contacto.\n" +
+                "• Exportar Stock: todos los productos del almacén, con su categoría, " +
+                "precio y cantidad disponible.\n" +
+                "• Exportar Transacciones: el detalle de todas las ventas y " +
+                "devoluciones realizadas (una fila por producto, con fecha, tipo, " +
+                "cliente, cantidad y precio).\n" +
+                "Al pulsar cualquiera de los tres, la aplicación te pedirá dónde " +
+                "guardar el archivo y con qué nombre. Al terminar, te preguntará si " +
+                "quieres abrirlo directamente."
+            );
+
             rtbManual.SelectionStart = 0;
             rtbManual.ScrollToCaret();
+        }
+
+        private void rtbManual_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

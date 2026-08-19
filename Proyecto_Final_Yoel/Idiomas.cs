@@ -108,6 +108,7 @@ namespace Proyecto_Final_Yoel
 
             ["Configuración"] = new Dictionary<string, string[]>
             {
+                ["button5"] = new[] { "Exportación", "Export", "Exportation", "Export", "Exportação" },
                 ["button4"] = new[] { "Ayuda", "Help", "Aide", "Hilfe", "Ajuda" },
                 ["button3"] = new[] { "Lenguaje", "Language", "Langue", "Sprache", "Idioma" },
                 ["button2"] = new[] { "Diseño", "Appearance", "Apparence", "Design", "Aparência" },

@@ -57,5 +57,10 @@ namespace Proyecto_Final_Yoel
         {
             AbrirFormularioEnPanel(new FrmAyuda());
         }
+
+        private void button5_Click(object sender, EventArgs e) // "Exportación"
+        {
+            AbrirFormularioEnPanel(new FrmExportar());
+        }
     }
 }
