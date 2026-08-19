@@ -166,7 +166,10 @@
     <EmbeddedResource Include="FormTransacciones.resx">
       <DependentUpon>FormTransacciones.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmAyuda.resx" />
+    <EmbeddedResource Include="FrmAyuda.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>FrmAyuda1.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmCambiarUsuario.resx">
       <DependentUpon>FrmCambiarUsuario.cs</DependentUpon>
     </EmbeddedResource>

@@ -173,18 +173,20 @@ namespace Proyecto_Final_Yoel
             this.MouseEventArg.Size = new System.Drawing.Size(26, 20);
             this.MouseEventArg.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.MouseEventArg.TabIndex = 12;
-            //
+            this.MouseEventArg.TabStop = false;
+            this.MouseEventArg.Click += new System.EventHandler(this.pictureBox2_Click);
+            // 
             // labelIdioma
-            //
+            // 
             this.labelIdioma.AutoSize = true;
             this.labelIdioma.Location = new System.Drawing.Point(21, 205);
             this.labelIdioma.Name = "labelIdioma";
-            this.labelIdioma.Size = new System.Drawing.Size(46, 13);
+            this.labelIdioma.Size = new System.Drawing.Size(41, 13);
             this.labelIdioma.TabIndex = 13;
             this.labelIdioma.Text = "Idioma:";
-            //
+            // 
             // comboIdioma
-            //
+            // 
             this.comboIdioma.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboIdioma.FormattingEnabled = true;
             this.comboIdioma.Items.AddRange(new object[] {
@@ -198,8 +200,6 @@ namespace Proyecto_Final_Yoel
             this.comboIdioma.Size = new System.Drawing.Size(142, 21);
             this.comboIdioma.TabIndex = 14;
             this.comboIdioma.SelectedIndexChanged += new System.EventHandler(this.comboIdioma_SelectedIndexChanged);
-            this.MouseEventArg.TabStop = false;
-            this.MouseEventArg.Click += new System.EventHandler(this.pictureBox2_Click);
             // 
             // Login
             // 
@@ -222,6 +222,7 @@ namespace Proyecto_Final_Yoel
             this.Controls.Add(this.buttonIniciarLogin);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Login";
             this.Text = "Login";
             this.Load += new System.EventHandler(this.Login_Load);
