@@ -64,7 +64,7 @@ namespace Proyecto_Final_Yoel
             AppendTexto(
                 "Al abrir la aplicación se muestra la pantalla de Login. Escribe tu Usuario y " +
                 "Contraseña y pulsa \"Iniciar\". Si no tienes una cuenta, puedes crear una nueva " +
-                "desde el propio Login (las cuentas creadas así son siempre de tipo Usuario " +
+                "desde el propio Login \n (las cuentas creadas así son siempre de tipo Usuario " +
                 "secundario). Arriba a la derecha puedes elegir el idioma de la aplicación " +
                 "(Español, English, Français, Deutsch, Português)."
             );
@@ -73,7 +73,7 @@ namespace Proyecto_Final_Yoel
             AppendTexto(
                 "Tras iniciar sesión verás el menú principal con estos botones: TRANSACCIONES, " +
                 "STOCK, CLIENTES, USUARIOS, LOGIN y CONF. Al pulsar cualquiera de ellos, la " +
-                "pantalla correspondiente se abre dentro de esta misma ventana, sin necesidad de " +
+                "pantalla \n correspondiente se abre dentro de esta misma ventana, sin necesidad de " +
                 "abrir ventanas nuevas."
             );
 
@@ -81,7 +81,7 @@ namespace Proyecto_Final_Yoel
             AppendTexto(
                 "Permite dar de alta, modificar, eliminar y buscar clientes. El Cliente ID se " +
                 "genera automáticamente al crear uno nuevo (no se edita a mano). Para modificar " +
-                "o eliminar un cliente, selecciónalo primero en la lista de abajo; sus datos " +
+                "o eliminar \n un cliente, selecciónalo primero en la lista de abajo; sus datos " +
                 "aparecerán en el formulario. El cuadro \"Buscar\" filtra la lista mientras " +
                 "escribes, por nombre, apellidos o ID."
             );
@@ -89,8 +89,8 @@ namespace Proyecto_Final_Yoel
             AppendSubtitulo("4. Stock");
             AppendTexto(
                 "Gestión de los productos del almacén (alta, modificación, eliminación y " +
-                "búsqueda). El Item ID también se autogenera. La Categoría se elige de un " +
-                "desplegable: si la categoría que necesitas no existe todavía, créala primero " +
+                "búsqueda). El Item ID también se \n autogenera. La Categoría se elige de un " +
+                "desplegable: si la categoría que \n necesitas no existe todavía, créala primero " +
                 "desde CONF → Modificar Categorías."
             );
 
@@ -100,8 +100,8 @@ namespace Proyecto_Final_Yoel
                 "\"Buscar\". Al encontrarlo, verás su historial de compras y devoluciones en la " +
                 "tabla central.\n" +
                 "Paso 2: en la lista de productos, selecciona el que quieres vender, escribe la " +
-                "cantidad en el cuadro junto a \"Agregar\" (si lo dejas vacío, se añade 1 " +
-                "unidad) y pulsa \"Agregar\". El producto pasa al carrito de la venta.\n" +
+                "cantidad en el cuadro  junto a \"Agregar\" (si lo dejas vacío, se añade 1 " +
+                "unidad) \n \t y pulsa \"Agregar\". El producto  pasa al carrito de la venta.\n" +
                 "Paso 3: repite el paso 2 con todos los productos que necesites. Puedes quitar " +
                 "un producto del carrito con \"Eliminar\", o ver un resumen con \"Ver Lista\".\n" +
                 "Paso 4: pulsa \"Guardar\" para completar la venta. El stock de los productos " +
@@ -111,7 +111,7 @@ namespace Proyecto_Final_Yoel
             AppendSubtitulo("6. Transacciones — pestaña Devueltos");
             AppendTexto(
                 "Solo visible para usuarios Administrador. Funciona igual que Salidas, pero solo " +
-                "permite devolver productos que ese cliente ya haya comprado y no haya devuelto " +
+                "permite devolver productos que ese \n cliente ya haya comprado y no haya devuelto " +
                 "todavía en su totalidad. Al guardar la devolución, el stock se suma de vuelta " +
                 "automáticamente."
             );
@@ -119,16 +119,16 @@ namespace Proyecto_Final_Yoel
             AppendSubtitulo("7. Usuarios");
             AppendTexto(
                 "Pantalla de solo consulta: muestra una tarjeta por cada cuenta de la " +
-                "aplicación, con su rol (Administrador o Usuario secundario) y la fecha/hora de " +
+                "aplicación, con \n su rol (Administrador o Usuario secundario) y la fecha/hora de " +
                 "su último acceso, de la más reciente a la más antigua."
             );
 
             AppendSubtitulo("8. Cambiar de usuario (botón LOGIN)");
             AppendTexto(
                 "Desde el botón LOGIN del menú principal puedes cambiar de cuenta sin cerrar la " +
-                "aplicación. Verás las cuentas agrupadas en \"Administradores\" y \"Usuarios " +
+                "aplicación. Verás las cuentas \n agrupadas en \"Administradores\" y \"Usuarios " +
                 "secundarios\" (la sección de Administradores solo aparece si tu cuenta actual " +
-                "ya es administradora). Pulsa sobre una tarjeta e introduce su contraseña para " +
+                "ya es administradora). Pulsa sobre \n una tarjeta e introduce su contraseña para " +
                 "entrar con ella. Si eres administrador, también verás aquí el botón " +
                 "\"+ Crear nuevo administrador\"."
             );

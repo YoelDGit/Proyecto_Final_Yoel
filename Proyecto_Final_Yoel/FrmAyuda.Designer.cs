@@ -29,7 +29,7 @@ namespace Proyecto_Final_Yoel
             this.panelCabecera.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelCabecera.Location = new System.Drawing.Point(0, 0);
             this.panelCabecera.Name = "panelCabecera";
-            this.panelCabecera.Size = new System.Drawing.Size(600, 50);
+            this.panelCabecera.Size = new System.Drawing.Size(560, 50);
             this.panelCabecera.TabIndex = 0;
             // 
             // labelTitulo
@@ -44,12 +44,13 @@ namespace Proyecto_Final_Yoel
             // 
             // rtbManual
             // 
+            this.rtbManual.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.rtbManual.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.rtbManual.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rtbManual.Location = new System.Drawing.Point(0, 50);
             this.rtbManual.Name = "rtbManual";
             this.rtbManual.ReadOnly = true;
-            this.rtbManual.Size = new System.Drawing.Size(600, 450);
+            this.rtbManual.Size = new System.Drawing.Size(557, 348);
             this.rtbManual.TabIndex = 1;
             this.rtbManual.Text = "";
             this.rtbManual.TextChanged += new System.EventHandler(this.rtbManual_TextChanged);
@@ -58,7 +59,7 @@ namespace Proyecto_Final_Yoel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(600, 500);
+            this.ClientSize = new System.Drawing.Size(560, 411);
             this.Controls.Add(this.rtbManual);
             this.Controls.Add(this.panelCabecera);
             this.Name = "FrmAyuda";
