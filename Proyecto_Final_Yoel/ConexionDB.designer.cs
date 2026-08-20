@@ -50,9 +50,9 @@ namespace Proyecto_Final_Yoel
     partial void DeleteStock(Stock instance);
     #endregion
 		
-		public ConexionDBDataContext() : 
-				base(global::Proyecto_Final_Yoel.Properties.Settings.Default.Proyecto_Final_YoelConnectionString1, mappingSource)
-		{
+		public ConexionDBDataContext() :
+				base(Proyecto_Final_Yoel.DatabaseInitializer.ObtenerConnectionString(), mappingSource)
+        {
 			OnCreated();
 		}
 		

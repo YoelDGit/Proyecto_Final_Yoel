@@ -90,6 +90,7 @@
     <Compile Include="Configuración.Designer.cs">
       <DependentUpon>Configuración.cs</DependentUpon>
     </Compile>
+    <Compile Include="DatabaseInitializer.cs" />
     <Compile Include="EstiloModerno.cs" />
     <Compile Include="ExcelExportHelper.cs" />
     <Compile Include="FrmAyuda.cs">

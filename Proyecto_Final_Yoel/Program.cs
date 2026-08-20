@@ -14,6 +14,11 @@ namespace Proyecto_Final_Yoel
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
+            // 0. Antes de nada: nos aseguramos de que la base de datos LocalDB
+            // existe y tiene todas las tablas. La primera vez que se instale
+            // en un PC nuevo, esto la crea sola (tarda 1-2 segundos).
+            DatabaseInitializer.AsegurarBaseDatosCreada();
+
             // 1. Instanciamos el formulario de Login
             Login frmLogin = new Login();
 
