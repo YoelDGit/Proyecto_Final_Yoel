@@ -45,7 +45,7 @@ namespace Proyecto_Final_Yoel
             dataGridView1.AllowUserToAddRows = false;
             dataGridView1.MultiSelect = false;
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridView1.SelectionChanged += DataGridView1_SelectionChanged;
+            
         }
 
         // Recarga el grid desde la base de datos, opcionalmente filtrado por texto de búsqueda

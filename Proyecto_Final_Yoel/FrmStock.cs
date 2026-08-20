@@ -44,7 +44,7 @@ namespace Proyecto_Final_Yoel
             dataGridView1.AllowUserToAddRows = false;
             dataGridView1.MultiSelect = false;
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridView1.SelectionChanged += DataGridView1_SelectionChanged;
+            
         }
 
         // Llena el combo de categorías desde la tabla Categorias
