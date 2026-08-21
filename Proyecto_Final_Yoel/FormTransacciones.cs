@@ -230,7 +230,7 @@ namespace Proyecto_Final_Yoel
                     Descripcion = d.Stock.Descripcion,
                     Precio = d.PrecioUnitario,
                     Cantidad = d.Cantidad,
-                    Total = d.PrecioUnitario * d.Cantidad
+                    Total = (d.Transacciones.Tipo == "Devolucion" ? -1 : 1) * (d.PrecioUnitario * d.Cantidad)
                 })
                 .ToList();
 

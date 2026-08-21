@@ -71,7 +71,7 @@ namespace Proyecto_Final_Yoel
                     d.Stock.Nombre,
                     d.Cantidad,
                     d.PrecioUnitario,
-                    d.PrecioUnitario * d.Cantidad
+                    (d.Transacciones.Tipo == "Devolucion" ? -1 : 1) * (d.PrecioUnitario * d.Cantidad) // Subtotal
                 })
                 .ToList();
 
@@ -119,5 +119,99 @@ namespace Proyecto_Final_Yoel
                 }
             }
         }
+
+        // ================================================================
+        // SUSTITUYE tu método btnHistorialPdf_Click por este completo
+        // ================================================================
+
+        private void btnHistorialPdf_Click(object sender, EventArgs e)
+        {
+            var resumen = db.Transacciones
+                .OrderByDescending(t => t.Fecha)
+                .AsEnumerable()
+                .Select(t => new
+                {
+                    t.IdTransaccion,
+                    t.Fecha,
+                    Cliente = t.Clientes != null ? (t.Clientes.Nombre + " " + t.Clientes.Apellidos) : "(cliente eliminado)",
+                    t.Tipo,
+                    // Una Devolución resta del total (es dinero que sale de caja),
+                    // una Salida (venta) suma normalmente
+                    Total = (t.Tipo == "Devolucion" ? -1 : 1) *
+                            (t.DetalleTransaccion.Sum(d => (decimal?)(d.Cantidad * d.PrecioUnitario)) ?? 0)
+                })
+                .ToList();
+
+            if (resumen.Count == 0)
+            {
+                MessageBox.Show("No hay transacciones registradas todavía.", "Aviso",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            var encabezados = new[] { "ID", "Fecha", "Cliente", "Tipo", "Total" };
+            var anchosColumnas = new double[] { 0, 45, 140, 330, 430 };
+
+            // Formato de moneda español: "150,00 €" en vez de "150.00"
+            var culturaEuro = new System.Globalization.CultureInfo("es-ES");
+
+            var filas = resumen
+                .Select(r => new[]
+                {
+            r.IdTransaccion.ToString(),
+            r.Fecha.ToString("dd/MM/yyyy HH:mm"),
+            r.Cliente,
+            r.Tipo,
+            r.Total.ToString("C2", culturaEuro)
+                })
+                .ToList();
+
+            decimal totalGeneral = resumen.Sum(r => r.Total);
+            string piePagina = $"Total general: {totalGeneral.ToString("C2", culturaEuro)}   —   {resumen.Count} transacción(es)";
+
+            // Ruta del logo: se copia junto al .exe, dentro de la carpeta Resources
+            // (igual que ya haces con tu otra imagen rtgeth.png)
+            string rutaLogo = System.IO.Path.Combine(Application.StartupPath, "Resources", "logo_ticket.jpg");
+
+            using (SaveFileDialog dialogo = new SaveFileDialog())
+            {
+                dialogo.Filter = "Documento PDF (*.pdf)|*.pdf";
+                dialogo.FileName = "Historial_Transacciones_" + DateTime.Now.ToString("yyyyMMdd") + ".pdf";
+
+                if (dialogo.ShowDialog(this) != DialogResult.OK)
+                {
+                    return;
+                }
+
+                try
+                {
+                    PdfExportHelper.ExportarTablaPdf(
+                        dialogo.FileName,
+                        "Historial resumen de transacciones",
+                        encabezados,
+                        anchosColumnas,
+                        filas,
+                        piePagina,
+                        rutaLogo,
+                        "StockWise");
+
+                    var abrir = MessageBox.Show(
+                        $"Se exportaron {resumen.Count} transacción(es) a:\n{dialogo.FileName}\n\n¿Quieres abrir el archivo ahora?",
+                        "Exportación completada", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+
+                    if (abrir == DialogResult.Yes)
+                    {
+                        System.Diagnostics.Process.Start(dialogo.FileName);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al exportar: " + ex.Message, "Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+
     }
 }

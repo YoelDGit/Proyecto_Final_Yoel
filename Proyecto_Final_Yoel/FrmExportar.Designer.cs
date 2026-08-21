@@ -18,6 +18,7 @@ namespace Proyecto_Final_Yoel
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnHistorialPdf = new System.Windows.Forms.Button();
             this.labelInfo = new System.Windows.Forms.Label();
             this.btnTransacciones = new System.Windows.Forms.Button();
             this.btnStock = new System.Windows.Forms.Button();
@@ -25,12 +26,13 @@ namespace Proyecto_Final_Yoel
             this.label1 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
-            //
+            // 
             // panel1
-            //
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.btnHistorialPdf);
             this.panel1.Controls.Add(this.labelInfo);
             this.panel1.Controls.Add(this.btnTransacciones);
             this.panel1.Controls.Add(this.btnStock);
@@ -40,39 +42,31 @@ namespace Proyecto_Final_Yoel
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(400, 320);
             this.panel1.TabIndex = 0;
-            //
-            // label1
-            //
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.label1.Location = new System.Drawing.Point(15, 15);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(160, 21);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Exportar a Excel";
-            //
-            // btnClientes
-            //
-            this.btnClientes.Location = new System.Drawing.Point(15, 55);
-            this.btnClientes.Name = "btnClientes";
-            this.btnClientes.Size = new System.Drawing.Size(320, 40);
-            this.btnClientes.TabIndex = 1;
-            this.btnClientes.Text = "Exportar Clientes";
-            this.btnClientes.UseVisualStyleBackColor = true;
-            this.btnClientes.Click += new System.EventHandler(this.btnClientes_Click);
-            //
-            // btnStock
-            //
-            this.btnStock.Location = new System.Drawing.Point(15, 105);
-            this.btnStock.Name = "btnStock";
-            this.btnStock.Size = new System.Drawing.Size(320, 40);
-            this.btnStock.TabIndex = 2;
-            this.btnStock.Text = "Exportar Stock";
-            this.btnStock.UseVisualStyleBackColor = true;
-            this.btnStock.Click += new System.EventHandler(this.btnStock_Click);
-            //
+            // 
+            // btnHistorialPdf
+            // 
+            this.btnHistorialPdf.Location = new System.Drawing.Point(15, 201);
+            this.btnHistorialPdf.Name = "btnHistorialPdf";
+            this.btnHistorialPdf.Size = new System.Drawing.Size(320, 40);
+            this.btnHistorialPdf.TabIndex = 5;
+            this.btnHistorialPdf.Text = "Historial (PDF)";
+            this.btnHistorialPdf.UseVisualStyleBackColor = true;
+            this.btnHistorialPdf.Click += new System.EventHandler(this.btnHistorialPdf_Click);
+            // 
+            // labelInfo
+            // 
+            this.labelInfo.AutoSize = true;
+            this.labelInfo.Font = new System.Drawing.Font("Segoe UI", 8.5F);
+            this.labelInfo.Location = new System.Drawing.Point(12, 260);
+            this.labelInfo.MaximumSize = new System.Drawing.Size(320, 0);
+            this.labelInfo.Name = "labelInfo";
+            this.labelInfo.Size = new System.Drawing.Size(291, 30);
+            this.labelInfo.TabIndex = 4;
+            this.labelInfo.Text = "Elige qué datos exportar. Te pedirá dónde guardar el archivo .xlsx y podrás abrir" +
+    "lo directamente al terminar.";
+            // 
             // btnTransacciones
-            //
+            // 
             this.btnTransacciones.Location = new System.Drawing.Point(15, 155);
             this.btnTransacciones.Name = "btnTransacciones";
             this.btnTransacciones.Size = new System.Drawing.Size(320, 40);
@@ -80,21 +74,39 @@ namespace Proyecto_Final_Yoel
             this.btnTransacciones.Text = "Exportar Transacciones";
             this.btnTransacciones.UseVisualStyleBackColor = true;
             this.btnTransacciones.Click += new System.EventHandler(this.btnTransacciones_Click);
-            //
-            // labelInfo
-            //
-            this.labelInfo.AutoSize = true;
-            this.labelInfo.Font = new System.Drawing.Font("Segoe UI", 8.5F);
-            this.labelInfo.Location = new System.Drawing.Point(15, 210);
-            this.labelInfo.MaximumSize = new System.Drawing.Size(320, 0);
-            this.labelInfo.Name = "labelInfo";
-            this.labelInfo.Size = new System.Drawing.Size(300, 39);
-            this.labelInfo.TabIndex = 4;
-            this.labelInfo.Text = "Elige qué datos exportar. Te pedirá dónde guardar el archivo .xlsx y podrás abr" +
-    "irlo directamente al terminar.";
-            //
+            // 
+            // btnStock
+            // 
+            this.btnStock.Location = new System.Drawing.Point(15, 105);
+            this.btnStock.Name = "btnStock";
+            this.btnStock.Size = new System.Drawing.Size(320, 40);
+            this.btnStock.TabIndex = 2;
+            this.btnStock.Text = "Exportar Stock";
+            this.btnStock.UseVisualStyleBackColor = true;
+            this.btnStock.Click += new System.EventHandler(this.btnStock_Click);
+            // 
+            // btnClientes
+            // 
+            this.btnClientes.Location = new System.Drawing.Point(15, 55);
+            this.btnClientes.Name = "btnClientes";
+            this.btnClientes.Size = new System.Drawing.Size(320, 40);
+            this.btnClientes.TabIndex = 1;
+            this.btnClientes.Text = "Exportar Clientes";
+            this.btnClientes.UseVisualStyleBackColor = true;
+            this.btnClientes.Click += new System.EventHandler(this.btnClientes_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.label1.Location = new System.Drawing.Point(15, 15);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(132, 21);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Exportar a Excel";
+            // 
             // FrmExportar
-            //
+            // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(400, 320);
@@ -105,6 +117,7 @@ namespace Proyecto_Final_Yoel
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
+
         }
 
         #endregion
@@ -115,5 +128,6 @@ namespace Proyecto_Final_Yoel
         private System.Windows.Forms.Button btnStock;
         private System.Windows.Forms.Button btnTransacciones;
         private System.Windows.Forms.Label labelInfo;
+        private System.Windows.Forms.Button btnHistorialPdf;
     }
 }
