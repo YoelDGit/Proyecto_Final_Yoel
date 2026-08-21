@@ -12,10 +12,15 @@ namespace Proyecto_Final_Yoel
 {
     public partial class Login : Form
     {
+        // Se activa justo antes de un cierre LEGÍTIMO (login correcto, o el
+        // usuario ya confirmó salir por otra vía). Login_FormClosing solo
+        // pregunta "¿seguro que quieres salir?" cuando esta bandera está en false.
+        private bool salidaAutorizada = false;
 
         public Login()
         {
             InitializeComponent();
+            this.FormClosing += Login_FormClosing;
             InicializarTimer();
         }
 
@@ -68,30 +73,16 @@ namespace Proyecto_Final_Yoel
             }
         }
 
+        // NOTA: este método existía con un usuario/contraseña fijos en el código
+        // ("admin"/"1234"), a modo de acceso paralelo que no pasaba por la
+        // validación real ni por SesionActual. Ahora simplemente redirige al
+        // botón de login de verdad, por si algún control viejo sigue llamando
+        // a este método - así queda inutilizado como "puerta trasera" sin
+        // arriesgarnos a tocar el Designer, que no tenemos delante.
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            // Reemplaza esto con tu validación real de base de datos o texto
-            if (txtUsuario.Text == "admin" && txtContrasena.Text == "1234")
-            {
-                MessageBox.Show("¡Bienvenido al sistema!");
-
-                // 1. Ocultamos la ventana de Login
-                this.Hide();
-
-                // 2. Instanciamos y mostramos la Pagina Principal
-                Pagina_Principal pantallaPrincipal = new Pagina_Principal();
-                pantallaPrincipal.Show();
-
-                // 3. Truco vital: Si el usuario cierra la Pagina Principal, 
-                // nos aseguramos de que el proceso no se quede colgado en segundo plano.
-                pantallaPrincipal.FormClosed += (s, args) => Application.Exit();
-            }
-            else
-            {
-                MessageBox.Show("Usuario o contraseña incorrectos", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            buttonIniciarLogin_Click(sender, e);
         }
-
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
@@ -115,7 +106,7 @@ namespace Proyecto_Final_Yoel
 
         private void label5_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -183,7 +174,7 @@ namespace Proyecto_Final_Yoel
 
                 // picOjo.Image = Properties.Resources.ojo_tachado;
             }
-        
+
         }
 
         private void buttonIniciarLogin_Click(object sender, EventArgs e)
@@ -224,6 +215,10 @@ namespace Proyecto_Final_Yoel
                         // 3. Indicamos al Program.cs que la validación fue un éxito
                         this.DialogResult = DialogResult.OK;
 
+                        // Este cierre es legítimo (login correcto): no debe
+                        // disparar la pregunta de "¿seguro que quieres salir?"
+                        salidaAutorizada = true;
+
                         // 4. Cerramos este formulario para destruirlo y liberar memoria RAM
                         this.Close();
                     }
@@ -241,9 +236,42 @@ namespace Proyecto_Final_Yoel
             }
         }
 
+        private void Login_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (salidaAutorizada)
+            {
+                return; // Es un cierre legítimo (login correcto, o ya confirmado), no preguntamos nada
+            }
+
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                var respuesta = MessageBox.Show(
+                    "¿Seguro que quieres salir de la aplicación?",
+                    "Confirmar salida",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question);
+
+                if (respuesta == DialogResult.No)
+                {
+                    e.Cancel = true;
+                }
+            }
+        }
+
         private void buttonCancelarLogin_Click(object sender, EventArgs e)
         {
-            this.Close();
+            var respuesta = MessageBox.Show(
+                "¿Seguro que quieres salir de la aplicación?",
+                "Confirmar salida",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            if (respuesta == DialogResult.Yes)
+            {
+                // Ya hemos preguntado aquí: que Login_FormClosing no vuelva a preguntar
+                salidaAutorizada = true;
+                this.Close();
+            }
         }
     }
 }

@@ -15,6 +15,7 @@ namespace Proyecto_Final_Yoel
         public Pagina_Principal()
         {
             InitializeComponent();
+            this.FormClosing += PaginaPrincipal_FormClosing;
         }
 
         private void AbrirFormularioEnPanel(Form formHijo)
@@ -81,6 +82,23 @@ namespace Proyecto_Final_Yoel
         private void label1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void PaginaPrincipal_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                var respuesta = MessageBox.Show(
+                    "¿Seguro que quieres salir de la aplicación?",
+                    "Confirmar salida",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question);
+
+                if (respuesta == DialogResult.No)
+                {
+                    e.Cancel = true;
+                }
+            }
         }
 
         private void button6_Click(object sender, EventArgs e) // "LOGIN"
